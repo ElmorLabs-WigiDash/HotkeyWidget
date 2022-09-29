@@ -45,18 +45,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Keyboard.cs" />
-    <Compile Include="KeyboardHook.cs" />
     <Compile Include="HotkeySettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HotkeySettingsForm.Designer.cs">
       <DependentUpon>HotkeySettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="KeyboardHook.cs" />
+    <Compile Include="MediaManager.cs" />
     <Compile Include="SendMessage.cs" />
+    <Compile Include="Widget.cs" />
+    <Compile Include="WidgetBase.cs" />
     <Compile Include="WidgetInstance.cs" />
     <Compile Include="WidgetInstanceBase.cs" />
-    <Compile Include="WidgetBase.cs" />
-    <Compile Include="Widget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
