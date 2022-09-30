@@ -53,6 +53,8 @@
     </Compile>
     <Compile Include="KeyboardHook.cs" />
     <Compile Include="MediaManager.cs" />
+    <Compile Include="KeyboardHook.cs" />
+    <Compile Include="MediaManager.cs" />
     <Compile Include="SendMessage.cs" />
     <Compile Include="Widget.cs" />
     <Compile Include="WidgetBase.cs" />
