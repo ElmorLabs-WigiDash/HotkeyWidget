@@ -1,15 +1,33 @@
 ﻿using FrontierWidgetFramework;
-using FrontierWidgetFramework.WidgetUtility;
 using System;
 using System.Drawing;
+using FrontierWidgetFramework.WidgetUtility;
 
-namespace HotkeyWidget
-{
-    public partial class HotkeyWidgetObject : IWidgetObject {
+namespace HotkeyWidget {
+    public partial class HotkeyWidget : IWidgetObject {
+
+        // Functionality
+        public string ResourcePath;
+        public WidgetError Load(string resource_path) {
+            
+            this.ResourcePath = resource_path;
+
+            // Load previews
+
+            return WidgetError.NO_ERROR;
+        }
+
+        public WidgetError Unload() {
+            return WidgetError.NO_ERROR;
+        }
 
         public IWidgetInstance CreateWidgetInstance(WidgetSize widget_size, Guid instance_guid) {
-            HotkeyWidgetInstance widget_instance = new HotkeyWidgetInstance(this, instance_guid);
+            HotkeyWidgetInstance widget_instance = new HotkeyWidgetInstance(this, widget_size, instance_guid);
             return widget_instance;
+        }
+
+        public bool RemoveWidgetInstance(Guid instance_guid) {
+            throw new NotImplementedException();
         }
 
         public Bitmap GetWidgetPreview(WidgetSize widget_size) {
@@ -19,25 +37,10 @@ namespace HotkeyWidget
             using(Graphics g = Graphics.FromImage(BitmapPreview)) {
                 g.Clear(BackColor);
                 Font FontHeader = new Font("Lucida Console", 20, FontStyle.Bold);
-                SizeF str_size = g.MeasureString("HOTKEY", FontHeader);
-                g.DrawString("HOTKEY", FontHeader, Brushes.White, (size.Width - str_size.Width) / 2, (size.Height - str_size.Height) / 2);
+                SizeF str_size = g.MeasureString("Hotkey", FontHeader);
+                g.DrawString("Hotkey", FontHeader, Brushes.White, (size.Width - str_size.Width) / 2, (size.Height - str_size.Height) / 2);
             }
             return BitmapPreview;
-        }
-
-        public WidgetError Load(string resource_path) {
-
-            //WidgetManager.RegisterWidget(this);
-            return WidgetError.NO_ERROR;
-
-        }
-
-        public bool RemoveWidgetInstance(Guid instance_guid) {
-            throw new NotImplementedException();
-        }
-
-        public WidgetError Unload() {
-            return WidgetError.NO_ERROR;
         }
     }
 

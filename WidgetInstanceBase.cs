@@ -1,27 +1,29 @@
 ﻿using FrontierWidgetFramework;
 using FrontierWidgetFramework.WidgetUtility;
 using System;
+using System.Drawing;
 using System.Windows.Controls;
 
-namespace HotkeyWidget
-{
+namespace HotkeyWidget {
     public partial class HotkeyWidgetInstance : IWidgetInstance {
 
-        // Identity
-        private HotkeyWidgetObject parent;
-        public IWidgetObject WidgetObject {
+        private HotkeyWidget parent;
+        public IWidgetObject WidgetObject { 
             get {
                 return parent;
             }
         }
+
         public Guid Guid { get; set; }
 
         public WidgetSize WidgetSize { get; set; }
 
+        public UserControl GetSettingsControl() {
+            return new SettingsUserControl(this);
+        }
+
+        // Events
         public event WidgetUpdatedEventHandler WidgetUpdated;
 
-        public UserControl GetSettingsControl() {
-            return null;
-        }
     }
 }

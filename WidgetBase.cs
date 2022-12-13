@@ -4,34 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace HotkeyWidget
-{
-    public partial class HotkeyWidgetObject : IWidgetObject {
+namespace HotkeyWidget {
+    public partial class HotkeyWidget : IWidgetObject {
 
+        // Identity
         public Guid Guid {
             get {
-                //return new Guid("10FD82AA-5E43-4633-9B97-A8113C82DC27");
                 return new Guid(GetType().Assembly.GetName().Name);
             }
         }
-
-        public SdkVersion TargetSdk {
-            get {
-                return WidgetUtility.CurrentSdkVersion;
-            }
-        }
-
         public string Name {
             get {
                 return "Hotkey";
             }
         }
         public string Description {
-
             get {
-                return "A widget displaying the current time and date";
+                return "A widget for executing hotkey actions";
             }
-
         }
         public string Author {
             get {
@@ -45,22 +35,28 @@ namespace HotkeyWidget
         }
         public Version Version {
             get {
-                return new Version(1, 0, 0);
+                return new Version(1,0,0);
             }
         }
 
-        public string VersionString => throw new NotImplementedException();
+        // Capabilities
+        public SdkVersion TargetSdk {
+            get {
+                return SdkVersion.Version_0;
+            }
+        }
 
         public List<WidgetSize> SupportedSizes {
             get {
-                return new List<WidgetSize>() { new WidgetSize(1, 1) };
-            }
-        }
-
-        public Bitmap PreviewImage {
-            get {
-                //return new Bitmap(ResourcePath + "preview_2x1.png");
-                return GetWidgetPreview(new WidgetSize(1, 1));
+                //return new List<WidgetSize>() { WidgetSize.SIZE_5X4 };
+                List<WidgetSize> widget_size_list = new List<WidgetSize>();
+                for(int y = 1; y < 5; y++) {
+                    for(int x = 1; x < 6; x++) {
+                        widget_size_list.Add(new WidgetSize(x, y));
+                    }
+                }
+                return widget_size_list;
+                //return new List<WidgetSize>() { WidgetSize.SIZE_1X1, WidgetSize.SIZE_2X1, WidgetSize.SIZE_2X2, WidgetSize.SIZE_4X3 };
             }
         }
 
@@ -69,6 +65,13 @@ namespace HotkeyWidget
 
         // Error handling
         public string LastErrorMessage { get; set; }
+
+        public Bitmap PreviewImage {
+            get {
+                return GetWidgetPreview(new WidgetSize(1, 1));
+            }
+        }
+
     }
 
 }
