@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HotkeyWidget"
              mc:Ignorable="d" 
+             d:Background="White"
              d:DesignHeight="240" d:DesignWidth="225" Margin="10, 25">
   <StackPanel>
     <Grid Margin="2">
@@ -20,11 +21,11 @@
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="100"></ColumnDefinition>
         <ColumnDefinition></ColumnDefinition>
-        <ColumnDefinition></ColumnDefinition>
+        <ColumnDefinition Width="60"></ColumnDefinition>
       </Grid.ColumnDefinitions>
       <Label Content="File path" FontSize="10" HorizontalAlignment="Stretch"/>
-      <TextBox x:Name="textBoxFile" IsManipulationEnabled="True" MaxLines="1" Grid.Column="1"/>
-      <Button x:Name="buttonFile" Content="File..." Click="buttonFile_Click" Grid.Column="2" FontSize="10"/>
+      <TextBox x:Name="textBoxFile" IsManipulationEnabled="True" MaxLines="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
+      <Button x:Name="buttonFile" Content="File..." Click="buttonFile_Click" Grid.Column="2" HorizontalAlignment="Stretch" FontSize="10" Background="{DynamicResource PrimaryBrush}"/>
     </Grid>
 
     <Grid Margin="2">
@@ -41,8 +42,8 @@
         <ColumnDefinition Width="100"></ColumnDefinition>
         <ColumnDefinition></ColumnDefinition>
       </Grid.ColumnDefinitions>
-      <Label Content="Action" HorizontalAlignment="Stretch" FontSize="10"/>
-      <ComboBox x:Name="actionGuid" Height="23" Grid.Column="1" HorizontalAlignment="Stretch"/>
+      <Button x:Name="actionButton" Content="Set Action" Click="ActionButton_OnClick"  Margin="2" HorizontalAlignment="Stretch" Background="{DynamicResource PrimaryBrush}"/>
+      <Label Grid.Column="1" x:Name="actionType" Content="" HorizontalAlignment="Stretch" FontSize="10"/>
     </Grid>
 
     <Button x:Name="buttonApply" Content="Save" Click="buttonApply_Click" Margin="2" HorizontalAlignment="Stretch" Width="220" Background="{DynamicResource PrimaryBrush}"/>

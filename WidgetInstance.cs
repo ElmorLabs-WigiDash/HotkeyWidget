@@ -23,7 +23,6 @@ namespace HotkeyWidget {
 
         public void ClickEvent(ClickType click_type, int x, int y) {
             if(click_type == ClickType.Single) {
-                if (ActionGuid == null) return;
                 parent.WidgetManager.TriggerAction((Guid)ActionGuid);
             }
         }
@@ -50,7 +49,7 @@ namespace HotkeyWidget {
 
         // Class specific
         private Mutex drawing_mutex = new Mutex();
-        private const int mutex_timeout = 1000;
+        private const int mutex_timeout = 100;
 
         private Thread task_thread;
         private volatile bool run_task = false;
@@ -116,18 +115,9 @@ namespace HotkeyWidget {
 
             this.parent = parent;
             this.Guid = instance_guid;
-
             this.WidgetSize = widget_size;
 
-            Size Size = widget_size.ToSize();
-
-            BitmapCurrent = new Bitmap(Size.Width, Size.Height);
-            if(drawing_mutex.WaitOne(mutex_timeout)) {
-                using(Graphics g = Graphics.FromImage(BitmapCurrent)) {
-                    g.Clear(Color.Gray);
-                }
-                drawing_mutex.ReleaseMutex();
-            }
+            BlankWidget();
 
             LoadSettings();
         }
@@ -145,15 +135,28 @@ namespace HotkeyWidget {
             WidgetUpdated?.Invoke(this, e);
         }
 
+        private void BlankWidget()
+        {
+            BitmapCurrent = new Bitmap(WidgetSize.ToSize().Width, WidgetSize.ToSize().Height);
+            if (drawing_mutex.WaitOne(mutex_timeout))
+            {
+                using (Graphics g = Graphics.FromImage(BitmapCurrent))
+                {
+                    g.Clear(Color.Gray);
+                }
+                drawing_mutex.ReleaseMutex();
+            }
+        }
+
         private void UpdateTask() {
 
             while(run_task) {
 
                 while(pause_task) {
-                    Thread.Sleep(500);
+                    Thread.Sleep(100);
                 }
 
-                if(WidgetType == PictureWidgetType.Single) {
+                if (WidgetType == PictureWidgetType.Single) {
                     try {
                         // Show next frame
                         if(animated_gif != null && drawing_mutex.WaitOne(mutex_timeout)) {
@@ -162,7 +165,6 @@ namespace HotkeyWidget {
                                     g.DrawImage(animated_gif.Images[current_frame].Image, Offset);
                                 }
                             //}
-                            UpdateWidget();
                             drawing_mutex.ReleaseMutex();
                             Thread.Sleep(animated_gif.Images[current_frame].Duration);
                             current_frame++;
@@ -191,8 +193,9 @@ namespace HotkeyWidget {
                         //lock(BitmapCurrent) { 
                             try {
                                 // Calculate width
-                                int width = img.Width;
-                                int height = img.Height;
+                                int width = WidgetSize.ToSize().Width;
+                                int height = WidgetSize.ToSize().Height;
+
                                 lock(BitmapCurrent) {
                                     if(width > BitmapCurrent.Width) {
                                         width = BitmapCurrent.Width;
@@ -218,9 +221,7 @@ namespace HotkeyWidget {
                                 }
                             } catch(Exception ex) {
                             }
-
-                           UpdateWidget();
-                           drawing_mutex.ReleaseMutex();
+                            drawing_mutex.ReleaseMutex();
                         }
                     }
 
@@ -229,7 +230,8 @@ namespace HotkeyWidget {
                         current_frame = 0;
                     }
 
-                    Thread.Sleep(5000);
+                    UpdateWidget();
+                    Thread.Sleep(100);
                 }
 
             }
@@ -241,7 +243,7 @@ namespace HotkeyWidget {
             run_task = false;
 
             if(task_thread != null) {
-                task_thread.Join(500);
+                task_thread.Join(100);
             }
 
             current_frame = 0;
@@ -271,9 +273,11 @@ namespace HotkeyWidget {
                 pause_task = false;
                 run_task = true;
 
-                ThreadStart thread_start = new ThreadStart(UpdateTask);
-                task_thread = new Thread(thread_start);
-                task_thread.IsBackground = true;
+                ThreadStart thread_start = UpdateTask;
+                task_thread = new Thread(thread_start)
+                {
+                    IsBackground = true
+                };
                 task_thread.Start();
             }
         }
@@ -284,7 +288,7 @@ namespace HotkeyWidget {
 
             if(task_thread != null && task_thread.IsAlive) {
                 pause_task = false;
-                task_thread.Join(500);
+                task_thread.Join(100);
             }
 
             Image img = null;
@@ -293,7 +297,7 @@ namespace HotkeyWidget {
                 // Load image
                 img = Image.FromFile(path);
             } catch(Exception ex) {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
 
             if(img != null) {
@@ -348,7 +352,7 @@ namespace HotkeyWidget {
                     pause_task = false;
                     run_task = true;
 
-                    ThreadStart thread_start = new ThreadStart(UpdateTask);
+                    ThreadStart thread_start = UpdateTask;
                     task_thread = new Thread(thread_start);
                     task_thread.IsBackground = true;
                     task_thread.Start();

@@ -24,6 +24,8 @@ namespace HotkeyWidget {
 
 
         HotkeyWidgetInstance parent;
+        private Guid _actionGuid;
+        private Guid _parentDevice;
 
         public SettingsUserControl(HotkeyWidgetInstance widget_instance) {
 
@@ -33,6 +35,7 @@ namespace HotkeyWidget {
             InitializeComponent();
 
             parent = widget_instance;
+            _parentDevice = parent.WidgetObject.WidgetManager.GetParentDevice(parent) ?? Guid.Empty;
 
             comboBoxType.Items.Add("Single");
             comboBoxType.Items.Add("Folder");
@@ -43,9 +46,7 @@ namespace HotkeyWidget {
                 textBoxColor.Text = ColorTranslator.ToHtml(parent.BackColor);
             } catch { }
 
-            actionGuid.ItemsSource = parent.WidgetObject.WidgetManager.GetActionList();
-            actionGuid.DisplayMemberPath = ".Value";
-            actionGuid.SelectedValuePath = ".Key";
+            actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, _actionGuid);
         }
 
         private void buttonFile_Click(object sender, RoutedEventArgs e) {
@@ -86,9 +87,17 @@ namespace HotkeyWidget {
                     break;
             }
 
-            parent.ActionGuid = (Guid)actionGuid.SelectedValue;
+            parent.ActionGuid = _actionGuid;
 
             parent.SaveSettings();
+        }
+
+        private void ActionButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            bool remSuccess =parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, parent.ActionGuid);
+            bool addSuccess = parent.WidgetObject.WidgetManager.CreateAction(_parentDevice, parent.ActionGuid, parent.Guid.ToString(), out Guid actionGuid);
+            actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
+            _actionGuid = actionGuid;
         }
     }
 }
