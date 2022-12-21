@@ -183,7 +183,7 @@ namespace HotkeyWidget {
 
                     try {
                         img = new Bitmap(FolderImages[current_frame]);
-                    } catch(Exception ex) {
+                    } catch {
 
                     }
 
@@ -219,7 +219,7 @@ namespace HotkeyWidget {
                                         }
                                     }
                                 }
-                            } catch(Exception ex) {
+                            } catch {
                             }
                             drawing_mutex.ReleaseMutex();
                         }
@@ -258,7 +258,7 @@ namespace HotkeyWidget {
                     string file_end = file.Substring(file.Length - 4);
                     switch(file_end) {
                         case ".jpg":
-                        case "jpeg":
+                        case ".jpeg":
                         case ".png":
                         case ".gif":
                         case ".tif":
@@ -368,9 +368,6 @@ namespace HotkeyWidget {
         }
 
         public void LoadSettings() {
-
-            int widget_version;
-
             string path, type;
             if(parent.WidgetManager.LoadSetting(this, "ImagePath", out path)) {
                 if(parent.WidgetManager.LoadSetting(this, "WidgetType", out type)) {
@@ -385,6 +382,7 @@ namespace HotkeyWidget {
                     }
                 }
             }
+
             string color;
             if(parent.WidgetManager.LoadSetting(this, "BackColor", out color)) {
                 try {
