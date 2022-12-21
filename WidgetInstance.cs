@@ -61,7 +61,7 @@ namespace HotkeyWidget {
 
         private Point Offset = Point.Empty;
 
-        public Guid ActionGuid;
+        public Guid ActionGuid = Guid.NewGuid();
 
         // https://social.microsoft.com/Forums/en-US/fcb7d14d-d15b-4336-971c-94a80e34b85e/editing-animated-gifs-in-c?forum=netfxbcl
         public class AnimatedGif {

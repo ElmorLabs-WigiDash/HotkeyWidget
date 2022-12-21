@@ -94,8 +94,11 @@ namespace HotkeyWidget {
 
         private void ActionButton_OnClick(object sender, RoutedEventArgs e)
         {
-            bool remSuccess =parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, parent.ActionGuid);
+            parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, parent.ActionGuid);
             bool addSuccess = parent.WidgetObject.WidgetManager.CreateAction(_parentDevice, parent.ActionGuid, parent.Guid.ToString(), out Guid actionGuid);
+
+            if (!addSuccess || actionGuid == Guid.Empty) return;
+
             actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
             _actionGuid = actionGuid;
         }
