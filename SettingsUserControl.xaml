@@ -25,8 +25,8 @@
         <ColumnDefinition Width="100"></ColumnDefinition>
         <ColumnDefinition></ColumnDefinition>
       </Grid.ColumnDefinitions>
-      <Label Content="Color" HorizontalAlignment="Stretch" FontSize="10"/>
-      <TextBox x:Name="textBoxColor" Grid.Column="1" MaxLines="1" IsManipulationEnabled="True"/>
+      <Label Content="Color" FontSize="10" HorizontalAlignment="Stretch"/>
+      <Button x:Name="bgColorSelect" Grid.Column="1" Click="colorSelect_OnClick" HorizontalAlignment="Stretch"></Button>
     </Grid>
 
     <Grid Margin="2">

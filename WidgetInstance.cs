@@ -366,7 +366,8 @@ namespace HotkeyWidget {
             parent.WidgetManager.StoreSetting(this, "WidgetType", ((int)WidgetType).ToString());
             parent.WidgetManager.StoreSetting(this, "BackColor", ColorTranslator.ToHtml(BackColor));
             parent.WidgetManager.StoreSetting(this, "HotkeyAction", ActionGuid.ToString());
-            BlankWidget();
+
+            if (image_path == "") BlankWidget();
         }
 
         public void LoadSettings() {
