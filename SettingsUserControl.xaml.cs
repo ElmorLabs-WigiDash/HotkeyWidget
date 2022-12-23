@@ -37,8 +37,7 @@ namespace HotkeyWidget {
             parent = widget_instance;
             _parentDevice = parent.WidgetObject.WidgetManager.GetParentDevice(parent) ?? Guid.Empty;
             _actionGuid = parent.ActionGuid;
-
-            comboBoxType.SelectedIndex = (int)parent.WidgetType;
+            
             textBoxFile.Text = parent.image_path;
             try {
                 textBoxColor.Text = ColorTranslator.ToHtml(parent.BackColor);

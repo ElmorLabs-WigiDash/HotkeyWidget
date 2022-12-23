@@ -142,10 +142,11 @@ namespace HotkeyWidget {
             {
                 using (Graphics g = Graphics.FromImage(BitmapCurrent))
                 {
-                    g.Clear(Color.Gray);
+                    g.Clear(BackColor);
                 }
                 drawing_mutex.ReleaseMutex();
             }
+            UpdateWidget();
         }
 
         private void UpdateTask() {
@@ -365,6 +366,7 @@ namespace HotkeyWidget {
             parent.WidgetManager.StoreSetting(this, "WidgetType", ((int)WidgetType).ToString());
             parent.WidgetManager.StoreSetting(this, "BackColor", ColorTranslator.ToHtml(BackColor));
             parent.WidgetManager.StoreSetting(this, "HotkeyAction", ActionGuid.ToString());
+            BlankWidget();
         }
 
         public void LoadSettings() {
@@ -383,11 +385,9 @@ namespace HotkeyWidget {
                 }
             }
 
-            string color;
-            if(parent.WidgetManager.LoadSetting(this, "BackColor", out color)) {
-                try {
-                    BackColor = ColorTranslator.FromHtml(color);
-                } catch { }
+            if(parent.WidgetManager.LoadSetting(this, "BackColor", out string color)) {
+                BackColor = ColorTranslator.FromHtml(color);
+                BlankWidget();
             }
 
             if (parent.WidgetManager.LoadSetting(this, "HotkeyAction", out string actionGuidString))
