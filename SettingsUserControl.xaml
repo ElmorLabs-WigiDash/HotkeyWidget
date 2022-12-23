@@ -8,14 +8,6 @@
              d:Background="White"
              d:DesignHeight="240" d:DesignWidth="225" Margin="10, 25">
   <StackPanel>
-    <Grid Margin="2">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="100"></ColumnDefinition>
-        <ColumnDefinition></ColumnDefinition>
-      </Grid.ColumnDefinitions>
-      <Label Content="Type" HorizontalAlignment="Stretch" FontSize="10"/>
-      <ComboBox x:Name="comboBoxType" Height="23" Grid.Column="1" HorizontalAlignment="Stretch"/>
-    </Grid>
 
     <Grid Margin="2">
       <Grid.ColumnDefinitions>

@@ -38,9 +38,6 @@ namespace HotkeyWidget {
             _parentDevice = parent.WidgetObject.WidgetManager.GetParentDevice(parent) ?? Guid.Empty;
             _actionGuid = parent.ActionGuid;
 
-            comboBoxType.Items.Add("Single");
-            comboBoxType.Items.Add("Folder");
-
             comboBoxType.SelectedIndex = (int)parent.WidgetType;
             textBoxFile.Text = parent.image_path;
             try {
@@ -50,22 +47,14 @@ namespace HotkeyWidget {
             actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, _actionGuid);
         }
 
-        private void buttonFile_Click(object sender, RoutedEventArgs e) {
-            switch(comboBoxType.SelectedIndex) {
-                case (int)HotkeyWidgetInstance.PictureWidgetType.Single:
-                    OpenFileDialog ofd = new OpenFileDialog();
-                    ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.tif;*.bmp;*.ico";
-                    bool? result = ofd.ShowDialog();
-                    if(result != null && result != false) {
-                        textBoxFile.Text = ofd.FileName;
-                    }
-                    break;
-                case (int)HotkeyWidgetInstance.PictureWidgetType.Folder:
-                    System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
-                    if(fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                        textBoxFile.Text = fbd.SelectedPath;
-                    }
-                    break;
+        private void buttonFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.tif;*.bmp;*.ico";
+            bool? result = ofd.ShowDialog();
+            if (result != null && result != false)
+            {
+                textBoxFile.Text = ofd.FileName;
             }
         }
 
@@ -75,17 +64,9 @@ namespace HotkeyWidget {
                 parent.BackColor = ColorTranslator.FromHtml(textBoxColor.Text);
             } catch { }
 
-            switch(comboBoxType.SelectedIndex) {
-                case (int)HotkeyWidgetInstance.PictureWidgetType.Single:
-                    if(File.Exists(textBoxFile.Text)) {
-                        parent.LoadImage(textBoxFile.Text);
-                    }
-                    break;
-                case (int)HotkeyWidgetInstance.PictureWidgetType.Folder:
-                    if(Directory.Exists(textBoxFile.Text)) {
-                        parent.LoadFolder(textBoxFile.Text);
-                    }
-                    break;
+            if (File.Exists(textBoxFile.Text))
+            {
+                parent.LoadImage(textBoxFile.Text);
             }
 
             parent.ActionGuid = _actionGuid;
