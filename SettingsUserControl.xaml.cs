@@ -36,6 +36,7 @@ namespace HotkeyWidget {
 
             parent = widget_instance;
             _parentDevice = parent.WidgetObject.WidgetManager.GetParentDevice(parent) ?? Guid.Empty;
+            _actionGuid = parent.ActionGuid;
 
             comboBoxType.Items.Add("Single");
             comboBoxType.Items.Add("Folder");
