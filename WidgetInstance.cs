@@ -57,11 +57,17 @@ namespace HotkeyWidget {
         
         private Bitmap BitmapCurrent;
 
+        public bool UseGlobal = false;
+
         public Color BackColor = Color.FromArgb(35, 35, 35);
 
         private Point Offset = Point.Empty;
 
         public Guid ActionGuid = Guid.NewGuid();
+
+        public string OverlayText = string.Empty;
+        public Color OverlayColor = Color.FromArgb(255, 255, 255);
+        public Font OverlayFont;
 
         // https://social.microsoft.com/Forums/en-US/fcb7d14d-d15b-4336-971c-94a80e34b85e/editing-animated-gifs-in-c?forum=netfxbcl
         public class AnimatedGif {
@@ -103,7 +109,7 @@ namespace HotkeyWidget {
 
         int current_frame;
 
-        public string image_path = "";
+        public string ImagePath = "";
 
         public enum PictureWidgetType : int { Single, Folder };
 
@@ -142,8 +148,10 @@ namespace HotkeyWidget {
             {
                 using (Graphics g = Graphics.FromImage(BitmapCurrent))
                 {
-                    g.Clear(BackColor);
+                    Color clearColor = UseGlobal ? parent.WidgetManager.GlobalWidgetTheme.PrimaryBgColor : BackColor;
+                    g.Clear(clearColor);
                 }
+                DrawOverlay();
                 drawing_mutex.ReleaseMutex();
             }
             UpdateWidget();
@@ -166,6 +174,9 @@ namespace HotkeyWidget {
                                     g.DrawImage(animated_gif.Images[current_frame].Image, Offset);
                                 }
                             //}
+
+                            DrawOverlay();
+
                             drawing_mutex.ReleaseMutex();
                             Thread.Sleep(animated_gif.Images[current_frame].Duration);
                             current_frame++;
@@ -218,6 +229,8 @@ namespace HotkeyWidget {
                                             g.Clear(Color.Black);
                                             g.DrawImage(img, Offset.X, Offset.Y, width, height);
                                         }
+
+                                        DrawOverlay();
                                     }
                                 }
                             } catch {
@@ -234,9 +247,24 @@ namespace HotkeyWidget {
                     UpdateWidget();
                     Thread.Sleep(100);
                 }
-
             }
 
+        }
+
+        public void DrawOverlay()
+        {
+            using (Graphics g = Graphics.FromImage(BitmapCurrent))
+            {
+                Color overlayColor = UseGlobal ? parent.WidgetManager.GlobalWidgetTheme.PrimaryFgColor : OverlayColor;
+                Brush overlayBrush = new SolidBrush(overlayColor);
+
+                Font overlayFont = UseGlobal ? parent.WidgetManager.GlobalWidgetTheme.PrimaryFont : OverlayFont;
+
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+
+                SizeF measuredString = g.MeasureString(OverlayText, overlayFont);
+                g.DrawString(OverlayText, overlayFont, overlayBrush, (WidgetSize.ToSize().Width - measuredString.Width) / 2, (WidgetSize.ToSize().Height - measuredString.Height) / 2);
+            }
         }
 
         public void LoadFolder(string path) {
@@ -248,12 +276,12 @@ namespace HotkeyWidget {
             }
 
             current_frame = 0;
-            image_path = path;
+            ImagePath = path;
             WidgetType = PictureWidgetType.Folder;
 
             // Find files in folder
             FolderImages = new List<string>();
-            string[] files = Directory.GetFiles(image_path);
+            string[] files = Directory.GetFiles(ImagePath);
             foreach(string file in files) {
                 if(file.Length > 3) {
                     string file_end = file.Substring(file.Length - 4);
@@ -330,6 +358,9 @@ namespace HotkeyWidget {
                             g.DrawImage(img, Offset.X, Offset.Y, width, height);
                         }
                     }
+
+                    DrawOverlay();
+
                     UpdateWidget();
                     drawing_mutex.ReleaseMutex();
                 }
@@ -346,7 +377,7 @@ namespace HotkeyWidget {
 
                 img.Dispose();
 
-                image_path = path;
+                ImagePath = path;
                 WidgetType = PictureWidgetType.Single;
 
                 if(animated_gif != null) {
@@ -360,14 +391,25 @@ namespace HotkeyWidget {
                 }
             }
         }
+        
+        public void UpdateSettings()
+        {
+            LoadImage(ImagePath);
+        }
 
         public void SaveSettings() {
-            parent.WidgetManager.StoreSetting(this, "ImagePath", image_path);
+            parent.WidgetManager.StoreSetting(this, "ImagePath", ImagePath);
             parent.WidgetManager.StoreSetting(this, "WidgetType", ((int)WidgetType).ToString());
             parent.WidgetManager.StoreSetting(this, "BackColor", ColorTranslator.ToHtml(BackColor));
             parent.WidgetManager.StoreSetting(this, "HotkeyAction", ActionGuid.ToString());
 
-            if (image_path == "") BlankWidget();
+            parent.WidgetManager.StoreSetting(this, "OverlayText", OverlayText);
+            parent.WidgetManager.StoreSetting(this, "OverlayColor", ColorTranslator.ToHtml(OverlayColor));
+            parent.WidgetManager.StoreSetting(this, "OverlayFont", new FontConverter().ConvertToInvariantString(OverlayFont));
+
+            parent.WidgetManager.StoreSetting(this, "UseGlobalTheme", UseGlobal.ToString());
+
+            if (ImagePath == "") BlankWidget();
         }
 
         public void LoadSettings() {
@@ -386,14 +428,35 @@ namespace HotkeyWidget {
                 }
             }
 
-            if(parent.WidgetManager.LoadSetting(this, "BackColor", out string color)) {
-                BackColor = ColorTranslator.FromHtml(color);
-                BlankWidget();
-            }
-
             if (parent.WidgetManager.LoadSetting(this, "HotkeyAction", out string actionGuidString))
             {
                 Guid.TryParse(actionGuidString, out ActionGuid);
+            }
+
+            if (parent.WidgetManager.LoadSetting(this, "OverlayText", out string overlayText))
+            {
+                OverlayText = overlayText;
+            }
+
+            if (parent.WidgetManager.LoadSetting(this, "OverlayFont", out var strOverlayFont))
+            {
+                OverlayFont = new FontConverter().ConvertFromInvariantString(strOverlayFont) as Font;
+            }
+            else
+            {
+                OverlayFont = new Font("Basic Square 7 Solid", 20);
+            }
+
+            if (parent.WidgetManager.LoadSetting(this, "UseGlobalTheme", out string globalTheme))
+            {
+                bool.TryParse(globalTheme, out UseGlobal);
+            }
+
+            if (parent.WidgetManager.LoadSetting(this, "BackColor", out string color))
+            {
+                BackColor = ColorTranslator.FromHtml(color);
+                BlankWidget();
+                DrawOverlay();
             }
         }
     }

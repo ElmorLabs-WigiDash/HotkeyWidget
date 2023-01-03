@@ -39,10 +39,20 @@ namespace HotkeyWidget {
             _parentDevice = parent.WidgetObject.WidgetManager.GetParentDevice(parent) ?? Guid.Empty;
             _actionGuid = parent.ActionGuid;
             
-            textBoxFile.Text = parent.image_path;
+            textBoxFile.Text = parent.ImagePath;
             try {
                 bgColorSelect.Content = ColorTranslator.ToHtml(parent.BackColor);
             } catch { }
+
+            textOverlay.Text = parent.OverlayText;
+
+            try
+            {
+                overlayColorSelect.Content = ColorTranslator.ToHtml(parent.OverlayColor);
+            } catch { }
+
+            overlayFontSelect.Content = new FontConverter().ConvertToInvariantString(parent.OverlayFont);
+            overlayFontSelect.Tag = parent.OverlayFont;
 
             actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, _actionGuid);
         }
@@ -72,15 +82,21 @@ namespace HotkeyWidget {
 
             try {
                 parent.BackColor = ColorTranslator.FromHtml(bgColorSelect.Content.ToString());
+                parent.OverlayColor = ColorTranslator.FromHtml(overlayColorSelect.Content.ToString());
             } catch { }
 
             if (File.Exists(textBoxFile.Text))
             {
-                parent.LoadImage(textBoxFile.Text);
+                parent.ImagePath = textBoxFile.Text;
             }
 
             parent.ActionGuid = _actionGuid;
 
+            parent.OverlayText = textOverlay.Text;
+            parent.OverlayFont = overlayFontSelect.Tag as Font;
+            parent.UseGlobal = globalThemeCheck.IsChecked ?? false;
+
+            parent.RequestUpdate();
             parent.SaveSettings();
         }
 
@@ -93,6 +109,18 @@ namespace HotkeyWidget {
 
             actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
             _actionGuid = actionGuid;
+        }
+
+        private void overlayFontSelect_Click(object sender, RoutedEventArgs e)
+        {
+            Font defaultFont = parent.OverlayFont;
+            Font selectedFont = parent.WidgetObject.WidgetManager.RequestFontSelection(defaultFont);
+
+            if (sender is Button caller)
+            {
+                caller.Content = new FontConverter().ConvertToInvariantString(selectedFont);
+                caller.Tag = selectedFont;
+            }
         }
     }
 }

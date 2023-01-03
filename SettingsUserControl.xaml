@@ -7,37 +7,66 @@
              mc:Ignorable="d" 
              d:Background="White"
              d:DesignHeight="240" d:DesignWidth="225" Margin="10, 25">
-  <StackPanel>
+    <StackPanel>
 
-    <Grid Margin="2">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="100"></ColumnDefinition>
-        <ColumnDefinition></ColumnDefinition>
-        <ColumnDefinition Width="60"></ColumnDefinition>
-      </Grid.ColumnDefinitions>
-      <Label Content="File path" FontSize="10" HorizontalAlignment="Stretch"/>
-      <TextBox x:Name="textBoxFile" IsManipulationEnabled="True" MaxLines="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
-      <Button x:Name="buttonFile" Content="File..." Click="buttonFile_Click" Grid.Column="2" HorizontalAlignment="Stretch" FontSize="10" Background="{DynamicResource PrimaryBrush}"/>
-    </Grid>
+        <Grid Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="File Path" FontSize="10" HorizontalAlignment="Stretch"/>
+            <TextBox x:Name="textBoxFile" IsManipulationEnabled="True" MaxLines="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
+            <Button x:Name="buttonFile" Content="File..." Click="buttonFile_Click" Grid.Column="2" HorizontalAlignment="Stretch" FontSize="10" Background="{DynamicResource PrimaryBrush}"/>
+        </Grid>
 
-    <Grid Margin="2">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="100"></ColumnDefinition>
-        <ColumnDefinition></ColumnDefinition>
-      </Grid.ColumnDefinitions>
-      <Label Content="Color" FontSize="10" HorizontalAlignment="Stretch"/>
-      <Button x:Name="bgColorSelect" Grid.Column="1" Click="colorSelect_OnClick" HorizontalAlignment="Stretch"></Button>
-    </Grid>
+        <CheckBox x:Name="globalThemeCheck" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6, 2" Content="Use Global Theme" FontSize="10"></CheckBox>
 
-    <Grid Margin="2">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="100"></ColumnDefinition>
-        <ColumnDefinition></ColumnDefinition>
-      </Grid.ColumnDefinitions>
-      <Button x:Name="actionButton" Content="Set Action" Click="ActionButton_OnClick"  Margin="2" HorizontalAlignment="Stretch" Background="{DynamicResource PrimaryBrush}"/>
-      <Label Grid.Column="1" x:Name="actionType" Content="" HorizontalAlignment="Stretch" FontSize="10"/>
-    </Grid>
+        <Grid Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Background Color" FontSize="10" HorizontalAlignment="Stretch"/>
+            <Button x:Name="bgColorSelect" Grid.Column="1" Click="colorSelect_OnClick" HorizontalAlignment="Stretch"></Button>
+        </Grid>
 
-    <Button x:Name="buttonApply" Content="Save" Click="buttonApply_Click" Margin="2" HorizontalAlignment="Stretch" Width="220" Background="{DynamicResource PrimaryBrush}"/>
-  </StackPanel>
+        <Grid Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Overlay Text" FontSize="10" HorizontalAlignment="Stretch"/>
+            <TextBox x:Name="textOverlay" MaxLines="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
+        </Grid>
+
+        <Grid Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Overlay Font" FontSize="10" HorizontalAlignment="Stretch"/>
+            <Button x:Name="overlayFontSelect" Grid.Column="1" Click="overlayFontSelect_Click" HorizontalAlignment="Stretch"></Button>
+        </Grid>
+
+        <Grid Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Overlay Color" FontSize="10" HorizontalAlignment="Stretch"/>
+            <Button x:Name="overlayColorSelect" Grid.Column="1" Click="colorSelect_OnClick" HorizontalAlignment="Stretch"></Button>
+        </Grid>
+
+        <Grid Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="actionButton" Content="Set Action" Click="ActionButton_OnClick"  Margin="2" HorizontalAlignment="Stretch" Background="{DynamicResource PrimaryBrush}"/>
+            <Label Grid.Column="1" x:Name="actionType" Content="" HorizontalAlignment="Stretch" FontSize="10"/>
+        </Grid>
+
+        <Button x:Name="buttonApply" Content="Save" Click="buttonApply_Click" Margin="2" HorizontalAlignment="Stretch" Width="220" Background="{DynamicResource PrimaryBrush}"/>
+    </StackPanel>
 </UserControl>
