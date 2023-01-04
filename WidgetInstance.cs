@@ -447,14 +447,19 @@ namespace HotkeyWidget {
                 OverlayFont = new Font("Basic Square 7 Solid", 20);
             }
 
+            if (parent.WidgetManager.LoadSetting(this, "OverlayColor", out string fgColor))
+            {
+                OverlayColor = ColorTranslator.FromHtml(fgColor);
+            }
+
             if (parent.WidgetManager.LoadSetting(this, "UseGlobalTheme", out string globalTheme))
             {
                 bool.TryParse(globalTheme, out UseGlobal);
             }
 
-            if (parent.WidgetManager.LoadSetting(this, "BackColor", out string color))
+            if (parent.WidgetManager.LoadSetting(this, "BackColor", out string bgColor))
             {
-                BackColor = ColorTranslator.FromHtml(color);
+                BackColor = ColorTranslator.FromHtml(bgColor);
                 BlankWidget();
                 DrawOverlay();
             }
