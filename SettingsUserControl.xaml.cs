@@ -87,7 +87,7 @@ namespace HotkeyWidget {
 
             if (File.Exists(textBoxFile.Text))
             {
-                parent.ImagePath = textBoxFile.Text;
+                parent.LoadImage(textBoxFile.Text);
             }
 
             parent.ActionGuid = _actionGuid;

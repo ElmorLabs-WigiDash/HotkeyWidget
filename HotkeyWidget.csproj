@@ -62,6 +62,10 @@
       <Project>{404649ad-4d43-4d04-8cd4-9d4cc1835907}</Project>
       <Name>FrontierWidgetFramework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PictureWidget\PictureWidget.csproj">
+      <Project>{80be75f1-93cb-4207-bcad-bf8ded6429fd}</Project>
+      <Name>PictureWidget</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="SettingsUserControl.xaml">
