@@ -121,9 +121,15 @@ namespace HotkeyWidget {
 
             this.parent = parent;
             this.Guid = instance_guid;
+
             this.WidgetSize = widget_size;
 
+            Size Size = widget_size.ToSize();
+
+            BitmapCurrent = new Bitmap(Size.Width, Size.Height);
+            
             BlankWidget();
+            LoadSettings();
 
             LoadSettings();
         }
@@ -178,15 +184,13 @@ namespace HotkeyWidget {
                             DrawOverlay();
 
                             drawing_mutex.ReleaseMutex();
-                            Thread.Sleep(animated_gif.Images[current_frame].Duration);
-                            current_frame++;
-                            if(current_frame == animated_gif.Images.Count) {
-                                current_frame = 0;
-                            }
+                            UpdateWidget();
                         }
                     } catch(Exception ex) { }
 
                 } else if(WidgetType == PictureWidgetType.Folder) {
+                    // Clear animated gif
+                    animated_gif = null;
 
                     // Show next picture
 
@@ -235,17 +239,34 @@ namespace HotkeyWidget {
                                 }
                             } catch {
                             }
+
                             drawing_mutex.ReleaseMutex();
+                            UpdateWidget();
                         }
                     }
 
+                    
+                }
+
+                if (animated_gif == null)
+                {
+                    Thread.Sleep(5000);
                     current_frame++;
-                    if(current_frame == FolderImages.Count) {
+                    if (current_frame == FolderImages.Count)
+                    {
                         current_frame = 0;
                     }
+                }
+                else
+                {
+                    if (animated_gif.Images[current_frame].Duration < 0) Thread.Sleep(200);
+                    else Thread.Sleep(animated_gif.Images[current_frame].Duration);
 
-                    UpdateWidget();
-                    Thread.Sleep(100);
+                    current_frame++;
+                    if (current_frame == animated_gif.Images.Count && animated_gif != null)
+                    {
+                        current_frame = 0;
+                    }
                 }
             }
 
