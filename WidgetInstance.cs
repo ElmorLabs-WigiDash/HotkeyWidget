@@ -14,10 +14,12 @@ namespace HotkeyWidget {
     public partial class HotkeyWidgetInstance : PictureWidgetInstance {
         public HotkeyWidgetInstance(HotkeyWidget parent, WidgetSize widgetSize, Guid instanceGuid) : base(parent, widgetSize, instanceGuid)
         {
+            LoadSettings();
             Initialize(parent, widgetSize, instanceGuid);
         }
 
         public Guid ActionGuid = Guid.NewGuid();
+
         public new void ClickEvent(ClickType click_type, int x, int y) {
             if(click_type == ClickType.Single) {
                 base.WidgetObject.WidgetManager.TriggerAction((Guid)ActionGuid);
