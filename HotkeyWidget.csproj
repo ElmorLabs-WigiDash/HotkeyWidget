@@ -58,9 +58,9 @@
     <Compile Include="WidgetInstanceBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WidgetFramework\FrontierWidgetFramework.csproj">
+    <ProjectReference Include="..\..\WidgetFramework\WidgetFramework.csproj">
       <Project>{404649ad-4d43-4d04-8cd4-9d4cc1835907}</Project>
-      <Name>FrontierWidgetFramework</Name>
+      <Name>WidgetFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\PictureWidget\PictureWidget.csproj">
       <Project>{80be75f1-93cb-4207-bcad-bf8ded6429fd}</Project>
