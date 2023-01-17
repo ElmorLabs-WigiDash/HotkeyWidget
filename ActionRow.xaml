@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="HotkeyWidget.ActionRow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HotkeyWidget"
+             mc:Ignorable="d" 
+             Height="40"
+             d:Background="White"
+             d:DesignHeight="40" d:DesignWidth="220">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="80"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="ActionNameText" VerticalAlignment="Center" HorizontalAlignment="Stretch"></Label>
+        <Button x:Name="DeleteButton" Click="DeleteButton_Click" Grid.Column="1" Margin="2" Background="{DynamicResource PrimaryBrush}" Content="Delete"></Button>
+    </Grid>
+</UserControl>

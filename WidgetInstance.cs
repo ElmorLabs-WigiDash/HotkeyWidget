@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using static PictureWidget.PictureWidgetInstance;
@@ -18,26 +19,34 @@ namespace HotkeyWidget {
             Initialize(parent, widgetSize, instanceGuid);
         }
 
-        public Guid ActionGuid = Guid.NewGuid();
+        public List<Guid> Actions = new List<Guid>();
 
         public new void ClickEvent(ClickType click_type, int x, int y) {
             if(click_type == ClickType.Single) {
-                base.WidgetObject.WidgetManager.TriggerAction((Guid)ActionGuid);
+                foreach (Guid guid in Actions)
+                {
+                    base.WidgetObject.WidgetManager.TriggerAction(guid);
+                }
             }
 
             base.ClickEvent(click_type, x, y);
         }
 
         public new void SaveSettings() {
-            base.WidgetObject.WidgetManager.StoreSetting(this, "HotkeyAction", ActionGuid.ToString());
+            base.WidgetObject.WidgetManager.StoreSetting(this, "HotkeyActions", string.Join(",", Actions.Select(x => x.ToString()).ToArray()));
 
             base.SaveSettings();
         }
 
         public new void LoadSettings() {
-            if (base.WidgetObject.WidgetManager.LoadSetting(this, "HotkeyAction", out string actionGuidString))
+            if (base.WidgetObject.WidgetManager.LoadSetting(this, "HotkeyActions", out string actionGuidsString))
             {
-                Guid.TryParse(actionGuidString, out ActionGuid);
+                string[] guids = actionGuidsString.Split(',');
+                foreach (string guidString in guids)
+                {
+                    Guid.TryParse(guidString, out Guid actionGuid);
+                    Actions.Add(actionGuid);
+                }
             }
 
             base.LoadSettings();

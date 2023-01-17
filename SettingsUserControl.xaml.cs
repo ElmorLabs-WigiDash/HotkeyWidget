@@ -25,7 +25,6 @@ namespace HotkeyWidget {
 
 
         HotkeyWidgetInstance parent;
-        private Guid _actionGuid;
         private Guid _parentDevice;
 
         public SettingsUserControl(HotkeyWidgetInstance widget_instance) {
@@ -37,8 +36,7 @@ namespace HotkeyWidget {
 
             parent = widget_instance;
             _parentDevice = parent.WidgetObject.WidgetManager.GetParentDevice(parent) ?? Guid.Empty;
-            _actionGuid = parent.ActionGuid;
-            
+
             textBoxFile.Text = parent.ImagePath;
             try {
                 bgColorSelect.Content = ColorTranslator.ToHtml(parent.BackColor);
@@ -54,7 +52,9 @@ namespace HotkeyWidget {
             overlayFontSelect.Content = new FontConverter().ConvertToInvariantString(parent.OverlayFont);
             overlayFontSelect.Tag = parent.OverlayFont;
 
-            actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, _actionGuid);
+            UpdateActionList();
+
+            //actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, _actionGuid);
         }
 
         private void colorSelect_OnClick(object sender, RoutedEventArgs e)
@@ -90,8 +90,6 @@ namespace HotkeyWidget {
                 parent.LoadImage(textBoxFile.Text);
             }
 
-            parent.ActionGuid = _actionGuid;
-
             parent.OverlayText = textOverlay.Text;
             parent.OverlayFont = overlayFontSelect.Tag as Font;
             parent.UseGlobal = globalThemeCheck.IsChecked ?? false;
@@ -104,13 +102,38 @@ namespace HotkeyWidget {
         {
             //parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, parent.ActionGuid);
             //bool addSuccess = parent.WidgetObject.WidgetManager.CreateAction(_parentDevice, parent.ActionGuid, parent.Guid.ToString(), out Guid actionGuid);
-            bool addSuccess = parent.WidgetObject.WidgetManager.EditAction(_parentDevice, parent.ActionGuid, parent.Guid.ToString());
+            Guid actionGuid = Guid.NewGuid();
+
+            bool addSuccess = parent.WidgetObject.WidgetManager.EditAction(_parentDevice, actionGuid, parent.Guid.ToString());
 
             //if (!addSuccess || actionGuid == Guid.Empty) return;
+            if (!addSuccess) return;
+            parent.Actions.Add(actionGuid);
+
+            UpdateActionList();
 
             //actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
-            actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, parent.ActionGuid);
+            //actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
             //_actionGuid = actionGuid;
+        }
+        
+        private void UpdateActionList()
+        {
+            actionList.Children.Clear();
+
+            foreach (Guid actionGuid in parent.Actions)
+            {
+                string actionString = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
+
+                ActionRow actionRow = new ActionRow(actionString, new Action(() =>
+                {
+                    parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, actionGuid);
+                    parent.Actions.Remove(actionGuid);
+                    UpdateActionList();
+                }));
+
+                actionList.Children.Add(actionRow);
+            }
         }
 
         private void overlayFontSelect_Click(object sender, RoutedEventArgs e)
