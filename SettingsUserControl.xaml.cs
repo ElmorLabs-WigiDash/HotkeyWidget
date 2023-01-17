@@ -46,7 +46,7 @@ namespace HotkeyWidget {
 
             textOverlay.Text = parent.OverlayText;
 
-            try
+            try 
             {
                 overlayColorSelect.Content = ColorTranslator.ToHtml(parent.OverlayColor);
             } catch { }
@@ -102,13 +102,15 @@ namespace HotkeyWidget {
 
         private void ActionButton_OnClick(object sender, RoutedEventArgs e)
         {
-            parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, parent.ActionGuid);
-            bool addSuccess = parent.WidgetObject.WidgetManager.CreateAction(_parentDevice, parent.ActionGuid, parent.Guid.ToString(), out Guid actionGuid);
+            //parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, parent.ActionGuid);
+            //bool addSuccess = parent.WidgetObject.WidgetManager.CreateAction(_parentDevice, parent.ActionGuid, parent.Guid.ToString(), out Guid actionGuid);
+            bool addSuccess = parent.WidgetObject.WidgetManager.EditAction(_parentDevice, parent.ActionGuid, parent.Guid.ToString());
 
-            if (!addSuccess || actionGuid == Guid.Empty) return;
+            //if (!addSuccess || actionGuid == Guid.Empty) return;
 
-            actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
-            _actionGuid = actionGuid;
+            //actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
+            actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, parent.ActionGuid);
+            //_actionGuid = actionGuid;
         }
 
         private void overlayFontSelect_Click(object sender, RoutedEventArgs e)
