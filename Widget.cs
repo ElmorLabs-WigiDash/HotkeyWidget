@@ -1,7 +1,7 @@
-﻿using FrontierWidgetFramework;
+﻿using WigiDashWidgetFramework;
 using System;
 using System.Drawing;
-using FrontierWidgetFramework.WidgetUtility;
+using WigiDashWidgetFramework.WidgetUtility;
 
 namespace HotkeyWidget {
     public partial class HotkeyWidget : IWidgetObject {
