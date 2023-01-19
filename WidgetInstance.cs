@@ -10,9 +10,11 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using static PictureWidget.PictureWidgetInstance;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace HotkeyWidget {
-    public partial class HotkeyWidgetInstance : PictureWidgetInstance {
+    public partial class HotkeyWidgetInstance : PictureWidgetInstance, IWidgetInstanceWithRemoval
+    {
         public HotkeyWidgetInstance(HotkeyWidget parent, WidgetSize widgetSize, Guid instanceGuid) : base(parent, widgetSize, instanceGuid)
         {
             LoadSettings();
@@ -50,6 +52,14 @@ namespace HotkeyWidget {
             }
 
             base.LoadSettings();
+        }
+
+        public void OnRemove()
+        {
+            foreach (Guid actionGuid in Actions)
+            {
+                base.WidgetObject.WidgetManager.RemoveAction(base.WidgetObject.WidgetManager.GetParentDevice(this) ?? Guid.Empty, actionGuid);
+            }
         }
     }
 }

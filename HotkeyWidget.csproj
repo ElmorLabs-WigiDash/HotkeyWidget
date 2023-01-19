@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\WidgetFramework\WidgetFramework.csproj">
-      <Project>{404649ad-4d43-4d04-8cd4-9d4cc1835907}</Project>
+      <Project>{404649AD-4D43-4D04-8CD4-9D4CC1835907}</Project>
       <Name>WidgetFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\PictureWidget\PictureWidget.csproj">
