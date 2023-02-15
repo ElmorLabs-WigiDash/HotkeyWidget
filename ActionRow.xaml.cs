@@ -22,15 +22,17 @@ namespace HotkeyWidget
     {
 
         private Action DeleteAction;
+        private Action EditAction;
 
         public ActionRow()
         {
             InitializeComponent();
         }
 
-        public ActionRow(string actionName, Action deleteAction)
+        public ActionRow(string actionName, Action deleteAction, Action editAction)
         {
             DeleteAction = deleteAction;
+            EditAction = editAction;
 
             InitializeComponent();
 
@@ -40,6 +42,12 @@ namespace HotkeyWidget
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             DeleteAction.Invoke();
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditAction.Invoke();
+            InvalidateVisual();
         }
     }
 }

@@ -58,6 +58,24 @@
             <Button x:Name="overlayColorSelect" Grid.Column="1" Click="colorSelect_OnClick" HorizontalAlignment="Stretch"></Button>
         </Grid>
 
+        <Grid Margin="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Overlay Offset" FontSize="10" HorizontalAlignment="Stretch" Grid.ColumnSpan="4"></Label>
+            <Label Grid.Row="1" Content="X:" FontSize="10" HorizontalAlignment="Stretch"></Label>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="OverlayXOffset" PreviewTextInput="OverlayXOffset_PreviewTextInput" ContextMenu="{x:Null}" CommandManager.PreviewExecuted="OverlayOffset_PreviewExecuted"></TextBox>
+            <Label Grid.Row="1" Content="Y:" FontSize="10" Grid.Column="2" HorizontalAlignment="Stretch"></Label>
+            <TextBox Grid.Row="1" Grid.Column="3" x:Name="OverlayYOffset" PreviewTextInput="OverlayYOffset_PreviewTextInput" ContextMenu="{x:Null}" CommandManager.PreviewExecuted="OverlayOffset_PreviewExecuted" ></TextBox>
+        </Grid>
+
         <Separator Margin="2"></Separator>
 
         <StackPanel Margin="2">

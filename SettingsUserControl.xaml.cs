@@ -94,6 +94,9 @@ namespace HotkeyWidget {
             parent.OverlayFont = overlayFontSelect.Tag as Font;
             parent.UseGlobal = globalThemeCheck.IsChecked ?? false;
 
+            parent.OverlayXOffset = lastValidXOffset;
+            parent.OverlayYOffset = lastValidYOffset;
+
             parent.RequestUpdate();
             parent.SaveSettings();
         }
@@ -125,12 +128,20 @@ namespace HotkeyWidget {
             {
                 string actionString = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
 
-                ActionRow actionRow = new ActionRow(actionString, new Action(() =>
+                Action deleteAction = new Action(() =>
                 {
                     parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, actionGuid);
                     parent.Actions.Remove(actionGuid);
                     UpdateActionList();
-                }));
+                });
+
+                Action editAction = new Action(() =>
+                {
+                    parent.WidgetObject.WidgetManager.EditAction(_parentDevice, actionGuid);
+                    UpdateActionList();
+                });
+
+                ActionRow actionRow = new ActionRow(actionString, deleteAction, editAction);
 
                 actionList.Children.Add(actionRow);
             }
@@ -145,6 +156,46 @@ namespace HotkeyWidget {
             {
                 caller.Content = new FontConverter().ConvertToInvariantString(selectedFont);
                 caller.Tag = selectedFont;
+            }
+        }
+
+        private int lastValidXOffset = 0;
+        private int lastValidYOffset = 0;
+        private void OverlayXOffset_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            bool result = int.TryParse(e.Text, out int lastInput);
+            if (!result)
+            {
+                e.Handled = true;
+                //OverlayXOffset.Text = lastValidXOffset.ToString();
+            }
+            else
+            {
+                int.TryParse(OverlayXOffset.Text, out lastValidXOffset);
+            }
+        }
+
+        private void OverlayYOffset_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            bool result = int.TryParse(e.Text, out int lastInput);
+            if (!result)
+            {
+                e.Handled = true;
+                //OverlayYOffset.Text = lastValidYOffset.ToString();
+            }
+            else
+            {
+                int.TryParse(OverlayYOffset.Text, out lastValidYOffset);
+            }
+        }
+
+        private void OverlayOffset_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (e.Command == ApplicationCommands.Copy ||
+             e.Command == ApplicationCommands.Cut ||
+             e.Command == ApplicationCommands.Paste)
+            {
+                e.Handled = true;
             }
         }
     }
