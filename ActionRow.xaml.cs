@@ -23,16 +23,18 @@ namespace HotkeyWidget
 
         private Action DeleteAction;
         private Action EditAction;
+        private Action<bool> MoveAction;
 
         public ActionRow()
         {
             InitializeComponent();
         }
 
-        public ActionRow(string actionName, Action deleteAction, Action editAction)
+        public ActionRow(string actionName, Action deleteAction, Action editAction, Action<bool> moveAction)
         {
             DeleteAction = deleteAction;
             EditAction = editAction;
+            MoveAction = moveAction;
 
             InitializeComponent();
 
@@ -48,6 +50,16 @@ namespace HotkeyWidget
         {
             EditAction.Invoke();
             InvalidateVisual();
+        }
+
+        private void UpButton_Click(object sender, RoutedEventArgs e)
+        {
+            MoveAction.Invoke(true);
+        }
+
+        private void DownButton_Click(object sender, RoutedEventArgs e)
+        {
+            MoveAction.Invoke(false);
         }
     }
 }

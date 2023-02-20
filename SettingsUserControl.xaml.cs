@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Utility;
 using Color = System.Drawing.Color;
 
 namespace HotkeyWidget {
@@ -141,7 +142,31 @@ namespace HotkeyWidget {
                     UpdateActionList();
                 });
 
-                ActionRow actionRow = new ActionRow(actionString, deleteAction, editAction);
+                Action<bool> moveAction = new Action<bool>((bool moveUp) => {
+                    int index = parent.Actions.IndexOf(actionGuid);
+                    parent.Actions.Remove(actionGuid);
+
+                    if (moveUp)
+                    {
+                        int newIndex = (index - 1).Clamp(0, parent.Actions.Count - 1);
+                        parent.Actions.Insert(newIndex, actionGuid);
+                    } else
+                    {
+                        if (index + 1 >= parent.Actions.Count)
+                        {
+                            parent.Actions.Add(actionGuid);
+                        }
+                        else
+                        {
+                            int newIndex = (index + 1).Clamp(0, parent.Actions.Count - 1);
+                            parent.Actions.Insert(newIndex, actionGuid);
+                        }
+                    }
+
+                    UpdateActionList();
+                });
+
+                ActionRow actionRow = new ActionRow(actionString, deleteAction, editAction, moveAction);
 
                 actionList.Children.Add(actionRow);
             }
