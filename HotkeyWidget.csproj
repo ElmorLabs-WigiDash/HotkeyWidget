@@ -64,6 +64,8 @@
     <ProjectReference Include="..\..\WidgetFramework\WidgetFramework.csproj">
       <Project>{404649AD-4D43-4D04-8CD4-9D4CC1835907}</Project>
       <Name>WidgetFramework</Name>
+		<Private>false</Private>
+		<ExcludeAssets>all</ExcludeAssets>
     </ProjectReference>
     <ProjectReference Include="..\PictureWidget\PictureWidget.csproj">
       <Project>{80be75f1-93cb-4207-bcad-bf8ded6429fd}</Project>
