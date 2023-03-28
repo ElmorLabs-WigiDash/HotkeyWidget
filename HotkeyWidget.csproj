@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HandyControl, Version=3.4.0.0, Culture=neutral, PublicKeyToken=45be8712787a1e5b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HandyControls.3.4.5\lib\net472\HandyControl.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -64,8 +67,8 @@
     <ProjectReference Include="..\..\WidgetFramework\WidgetFramework.csproj">
       <Project>{404649AD-4D43-4D04-8CD4-9D4CC1835907}</Project>
       <Name>WidgetFramework</Name>
-		<Private>false</Private>
-		<ExcludeAssets>all</ExcludeAssets>
+      <Private>false</Private>
+      <ExcludeAssets>all</ExcludeAssets>
     </ProjectReference>
     <ProjectReference Include="..\PictureWidget\PictureWidget.csproj">
       <Project>{80be75f1-93cb-4207-bcad-bf8ded6429fd}</Project>
@@ -81,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

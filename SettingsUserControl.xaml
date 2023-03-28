@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:local="clr-namespace:HotkeyWidget"
              mc:Ignorable="d" 
              d:Background="White"
-             d:DesignHeight="240" d:DesignWidth="225" Margin="10, 25">
+             d:DesignHeight="300" d:DesignWidth="225" Margin="10, 25">
     <StackPanel>
 
         <Grid Margin="2">
@@ -71,9 +72,9 @@
             </Grid.ColumnDefinitions>
             <Label Content="Overlay Offset" FontSize="10" HorizontalAlignment="Stretch" Grid.ColumnSpan="4"></Label>
             <Label Grid.Row="1" Content="X:" FontSize="10" HorizontalAlignment="Stretch"></Label>
-            <TextBox Grid.Row="1" Grid.Column="1" x:Name="OverlayXOffset" PreviewTextInput="OverlayXOffset_PreviewTextInput" ContextMenu="{x:Null}" CommandManager.PreviewExecuted="OverlayOffset_PreviewExecuted"></TextBox>
+            <hc:NumericUpDown Grid.Row="1" Grid.Column="1" x:Name="OverlayXOffset"></hc:NumericUpDown>
             <Label Grid.Row="1" Content="Y:" FontSize="10" Grid.Column="2" HorizontalAlignment="Stretch"></Label>
-            <TextBox Grid.Row="1" Grid.Column="3" x:Name="OverlayYOffset" PreviewTextInput="OverlayYOffset_PreviewTextInput" ContextMenu="{x:Null}" CommandManager.PreviewExecuted="OverlayOffset_PreviewExecuted" ></TextBox>
+            <hc:NumericUpDown Grid.Row="1" Grid.Column="3" x:Name="OverlayYOffset"></hc:NumericUpDown>
         </Grid>
 
         <Separator Margin="2"></Separator>
