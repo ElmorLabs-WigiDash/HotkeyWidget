@@ -17,8 +17,9 @@ namespace HotkeyWidget {
     {
         public HotkeyWidgetInstance(HotkeyWidget parent, WidgetSize widgetSize, Guid instanceGuid) : base(parent, widgetSize, instanceGuid)
         {
-            LoadSettings();
-            Initialize(parent, widgetSize, instanceGuid);
+            LoadHotkeyActions();
+            //LoadSettings();
+            //base.Initialize(parent, widgetSize, instanceGuid);
         }
 
         public List<Guid> Actions = new List<Guid>();
@@ -40,7 +41,7 @@ namespace HotkeyWidget {
             base.SaveSettings();
         }
 
-        public new void LoadSettings() {
+        public void LoadHotkeyActions() {
             if (base.WidgetObject.WidgetManager.LoadSetting(this, "HotkeyActions", out string actionGuidsString))
             {
                 string[] guids = actionGuidsString.Split(',');
@@ -50,8 +51,6 @@ namespace HotkeyWidget {
                     Actions.Add(actionGuid);
                 }
             }
-
-            base.LoadSettings();
         }
 
         public void OnRemove()
