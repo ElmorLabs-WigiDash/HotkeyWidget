@@ -6,8 +6,15 @@ using WigiDashWidgetFramework;
 
 namespace HotkeyWidget {
     public partial class HotkeyWidgetInstance : PictureWidgetInstance {
-        public new UserControl GetSettingsControl() {
-            return new SettingsUserControl(this);
+        private SettingsUserControl _userControl;
+
+        public new UserControl GetSettingsControl()
+        {
+            if (_userControl == null)
+            {
+                _userControl = new SettingsUserControl(this);
+            }
+            return _userControl;
         }
     }
 }
