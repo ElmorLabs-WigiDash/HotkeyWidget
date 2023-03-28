@@ -38,7 +38,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Content="Overlay Text" FontSize="10" HorizontalAlignment="Stretch"/>
-            <TextBox x:Name="textOverlay" MaxLines="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
+            <TextBox x:Name="textOverlay" Grid.Column="1" HorizontalAlignment="Stretch" AcceptsReturn="True" TextWrapping="NoWrap"/>
         </Grid>
 
         <Grid Margin="2">
