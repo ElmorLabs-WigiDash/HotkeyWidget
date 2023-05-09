@@ -9,8 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using static PictureWidget.PictureWidgetInstance;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace HotkeyWidget {
     public partial class HotkeyWidgetInstance : PictureWidgetInstance, IWidgetInstanceWithRemoval
