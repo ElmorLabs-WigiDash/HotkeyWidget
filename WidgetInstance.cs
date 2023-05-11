@@ -34,7 +34,7 @@ namespace HotkeyWidget {
         }
 
         public new void SaveSettings() {
-            base.WidgetObject.WidgetManager.StoreSetting(this, "HotkeyActions", string.Join(",", Actions.Select(x => x.ToString()).ToArray()));
+            base.WidgetObject.WidgetManager.StoreSetting(this, "HotkeyActions", string.Join(",", Actions.Select(x => x.ToString()).ToArray()), false);
 
             base.SaveSettings();
         }
