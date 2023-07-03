@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:HotkeyWidget"
              mc:Ignorable="d" 
              d:Background="White"
-             d:DesignHeight="300" d:DesignWidth="225" Margin="10, 25">
+             d:DesignHeight="500" d:DesignWidth="300" Margin="10, 25">
     <StackPanel>
 
         <Grid Margin="2">
@@ -32,52 +32,90 @@
             <Button x:Name="bgColorSelect" Grid.Column="1" Click="colorSelect_OnClick" HorizontalAlignment="Stretch"></Button>
         </Grid>
 
-        <Grid Margin="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Content="Overlay Text" FontSize="10" HorizontalAlignment="Stretch"/>
-            <TextBox x:Name="textOverlay" Grid.Column="1" HorizontalAlignment="Stretch" AcceptsReturn="True" TextWrapping="NoWrap"/>
-        </Grid>
+        <Expander Header="Overlay Options" d:IsExpanded="True" Margin="0, 10, 0, 0">
+            <StackPanel>
+                <Grid Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Overlay Text" FontSize="10" HorizontalAlignment="Stretch"/>
+                    <TextBox x:Name="textOverlay" Grid.Column="1" HorizontalAlignment="Stretch" AcceptsReturn="True" TextWrapping="NoWrap"/>
+                </Grid>
 
-        <Grid Margin="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Content="Overlay Font" FontSize="10" HorizontalAlignment="Stretch"/>
-            <Button x:Name="overlayFontSelect" Grid.Column="1" Click="overlayFontSelect_Click" HorizontalAlignment="Stretch"></Button>
-        </Grid>
+                <Grid Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Overlay Font" FontSize="10" HorizontalAlignment="Stretch"/>
+                    <Button x:Name="overlayFontSelect" Grid.Column="1" Click="overlayFontSelect_Click" HorizontalAlignment="Stretch"></Button>
+                </Grid>
 
-        <Grid Margin="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Content="Overlay Color" FontSize="10" HorizontalAlignment="Stretch"/>
-            <Button x:Name="overlayColorSelect" Grid.Column="1" Click="colorSelect_OnClick" HorizontalAlignment="Stretch"></Button>
-        </Grid>
+                <Grid Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Overlay Color" FontSize="10" HorizontalAlignment="Stretch"/>
+                    <Button x:Name="overlayColorSelect" Grid.Column="1" Click="colorSelect_OnClick" HorizontalAlignment="Stretch"></Button>
+                </Grid>
 
-        <Grid Margin="2">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="40"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Content="Overlay Offset" FontSize="10" HorizontalAlignment="Stretch" Grid.ColumnSpan="4"></Label>
-            <Label Grid.Row="1" Content="X:" FontSize="10" HorizontalAlignment="Stretch"></Label>
-            <hc:NumericUpDown Grid.Row="1" Grid.Column="1" x:Name="OverlayXOffset"></hc:NumericUpDown>
-            <Label Grid.Row="1" Content="Y:" FontSize="10" Grid.Column="2" HorizontalAlignment="Stretch"></Label>
-            <hc:NumericUpDown Grid.Row="1" Grid.Column="3" x:Name="OverlayYOffset"></hc:NumericUpDown>
-        </Grid>
+                <Grid Margin="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Overlay Position" FontSize="10" HorizontalAlignment="Stretch" Grid.ColumnSpan="4"></Label>
+                    <Label Grid.Row="1" Content="Horizontal:" FontSize="10" HorizontalAlignment="Stretch"></Label>
+                    <ComboBox Grid.Row="1" Grid.Column="1" x:Name="OverlayXPos">
+                        <ComboBox.Items>
+                            <ComboBoxItem Content="Center"></ComboBoxItem>
+                            <ComboBoxItem Content="Left"></ComboBoxItem>
+                            <ComboBoxItem Content="Right"></ComboBoxItem>
+                        </ComboBox.Items>
+                    </ComboBox>
+                    <Label Grid.Row="1" Content="Vertical:" FontSize="10" Grid.Column="2" HorizontalAlignment="Stretch"></Label>
+                    <ComboBox Grid.Row="1" Grid.Column="3" x:Name="OverlayYPos">
+                        <ComboBox.Items>
+                            <ComboBoxItem Content="Center"></ComboBoxItem>
+                            <ComboBoxItem Content="Top"></ComboBoxItem>
+                            <ComboBoxItem Content="Bottom"></ComboBoxItem>
+                        </ComboBox.Items>
+                    </ComboBox>
+                </Grid>
+            </StackPanel>
+        </Expander>
 
-        <Separator Margin="2"></Separator>
+        <Expander Header="Advanced Options" d:IsExpanded="True" Margin="0, 10, 0, 0">
+            <StackPanel>
+                <Grid Margin="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Overlay Offset" FontSize="10" HorizontalAlignment="Stretch" Grid.ColumnSpan="4"></Label>
+                    <Label Grid.Row="1" Content="X:" FontSize="10" HorizontalAlignment="Stretch"></Label>
+                    <hc:NumericUpDown Grid.Row="1" Grid.Column="1" x:Name="OverlayXOffset"></hc:NumericUpDown>
+                    <Label Grid.Row="1" Content="Y:" FontSize="10" Grid.Column="2" HorizontalAlignment="Stretch"></Label>
+                    <hc:NumericUpDown Grid.Row="1" Grid.Column="3" x:Name="OverlayYOffset"></hc:NumericUpDown>
+                </Grid>
+            </StackPanel>
+        </Expander>
+
+        <Separator Margin="2, 10, 2, 0"></Separator>
 
         <StackPanel Margin="2">
             <StackPanel x:Name="actionList" Margin="2" MinHeight="20" Background="{DynamicResource SecondaryRegionBrush}"></StackPanel>
@@ -86,6 +124,6 @@
 
         <Separator Margin="2"></Separator>
 
-        <Button x:Name="buttonApply" Content="Save" Click="buttonApply_Click" Margin="2" HorizontalAlignment="Stretch" Width="220" Background="{DynamicResource PrimaryBrush}"/>
+        <Button x:Name="buttonApply" Content="Save" Click="buttonApply_Click" Margin="2, 10, 2, 0" HorizontalAlignment="Stretch" Background="{DynamicResource PrimaryBrush}"/>
     </StackPanel>
 </UserControl>

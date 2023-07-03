@@ -44,6 +44,9 @@ namespace HotkeyWidget {
             overlayFontSelect.Content = new FontConverter().ConvertToInvariantString(parent.OverlayFont);
             overlayFontSelect.Tag = parent.OverlayFont;
 
+            OverlayXPos.SelectedIndex = parent.OverlayXPos;
+            OverlayYPos.SelectedIndex = parent.OverlayYPos;
+
             OverlayXOffset.Value = parent.OverlayXOffset;
             OverlayYOffset.Value = parent.OverlayYOffset;
 
@@ -86,6 +89,9 @@ namespace HotkeyWidget {
             parent.OverlayText = textOverlay.Text;
             parent.OverlayFont = overlayFontSelect.Tag as Font;
             parent.UseGlobal = globalThemeCheck.IsChecked ?? false;
+
+            parent.OverlayXPos = OverlayXPos.SelectedIndex;
+            parent.OverlayYPos = OverlayYPos.SelectedIndex;
 
             parent.OverlayXOffset = (int)OverlayXOffset.Value;
             parent.OverlayYOffset = (int)OverlayYOffset.Value;
