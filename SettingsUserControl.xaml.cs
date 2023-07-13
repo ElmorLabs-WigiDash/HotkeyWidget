@@ -50,6 +50,8 @@ namespace HotkeyWidget {
             OverlayXOffset.Value = parent.OverlayXOffset;
             OverlayYOffset.Value = parent.OverlayYOffset;
 
+            globalThemeCheck.IsChecked = parent.UseGlobal;
+
             UpdateActionList();
 
             //actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, _actionGuid);
@@ -122,6 +124,15 @@ namespace HotkeyWidget {
         
         private void UpdateActionList()
         {
+            if (parent.Actions.Count <= 0)
+            {
+                NoActionLabel.Visibility = Visibility.Visible;
+                return;
+            } else
+            {
+                NoActionLabel.Visibility = Visibility.Collapsed;
+            }
+
             actionList.Children.Clear();
 
             foreach (Guid actionGuid in parent.Actions)

@@ -21,7 +21,7 @@
             <Button x:Name="buttonFile" Content="File..." Click="buttonFile_Click" Grid.Column="2" HorizontalAlignment="Stretch" FontSize="10" Background="{DynamicResource PrimaryBrush}"/>
         </Grid>
 
-        <CheckBox x:Name="globalThemeCheck" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6, 2" Content="Use Global Theme" FontSize="10"></CheckBox>
+        <CheckBox x:Name="globalThemeCheck" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="6, 2" Content="Use Global Theme" FontSize="10"></CheckBox>
 
         <Grid Margin="2">
             <Grid.ColumnDefinitions>
@@ -115,14 +115,15 @@
             </StackPanel>
         </Expander>
 
-        <Separator Margin="2, 10, 2, 0"></Separator>
-
-        <StackPanel Margin="2">
-            <StackPanel x:Name="actionList" Margin="2" MinHeight="20" Background="{DynamicResource SecondaryRegionBrush}"></StackPanel>
-            <Button x:Name="actionButton" Content="Set Action" Click="ActionButton_OnClick"  Margin="2" HorizontalAlignment="Stretch" Background="{DynamicResource PrimaryBrush}"/>
-        </StackPanel>
-
-        <Separator Margin="2"></Separator>
+        <Expander Header="Hotkey Actions" d:IsExpanded="True" Margin="0, 10, 0, 0">
+            <StackPanel Margin="2">
+                <Border Background="Black" CornerRadius="5" Height="40" x:Name="NoActionLabel" Margin="2">
+                    <TextBlock Text="No Actions" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                </Border>
+                <StackPanel x:Name="actionList" Margin="2" Background="{DynamicResource SecondaryRegionBrush}"></StackPanel>
+                <Button x:Name="actionButton" Content="Add Action" Click="ActionButton_OnClick"  Margin="2" HorizontalAlignment="Stretch" Background="{DynamicResource PrimaryBrush}"/>
+            </StackPanel>
+        </Expander>
 
         <Button x:Name="buttonApply" Content="Save" Click="buttonApply_Click" Margin="2, 10, 2, 0" HorizontalAlignment="Stretch" Background="{DynamicResource PrimaryBrush}"/>
     </StackPanel>
