@@ -52,6 +52,8 @@ namespace HotkeyWidget {
 
             globalThemeCheck.IsChecked = parent.UseGlobal;
 
+            bgColorSelect.IsEnabled = !parent.UseGlobal;
+
             UpdateActionList();
 
             //actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, _actionGuid);
@@ -65,6 +67,13 @@ namespace HotkeyWidget {
                 Color selectedColor = parent.WidgetObject.WidgetManager.RequestColorSelection(defaultColor);
                 caller.Content = ColorTranslator.ToHtml(selectedColor);
             }
+
+            try
+            {
+                parent.BackColor = ColorTranslator.FromHtml(bgColorSelect.Content.ToString());
+                parent.OverlayColor = ColorTranslator.FromHtml(overlayColorSelect.Content.ToString());
+            }
+            catch { }
         }
 
         private void buttonFile_Click(object sender, RoutedEventArgs e)
@@ -76,31 +85,6 @@ namespace HotkeyWidget {
             {
                 textBoxFile.Text = ofd.FileName;
             }
-        }
-
-        private void buttonApply_Click(object sender, RoutedEventArgs e) {
-            try
-            {
-                parent.BackColor = ColorTranslator.FromHtml(bgColorSelect.Content.ToString());
-                parent.OverlayColor = ColorTranslator.FromHtml(overlayColorSelect.Content.ToString());
-            }
-            catch { }
-
-            parent.LoadImage(textBoxFile.Text);
-
-            parent.OverlayText = textOverlay.Text;
-            parent.OverlayFont = overlayFontSelect.Tag as Font;
-            parent.UseGlobal = globalThemeCheck.IsChecked ?? false;
-
-            parent.OverlayXPos = OverlayXPos.SelectedIndex;
-            parent.OverlayYPos = OverlayYPos.SelectedIndex;
-
-            parent.OverlayXOffset = (int)OverlayXOffset.Value;
-            parent.OverlayYOffset = (int)OverlayYOffset.Value;
-
-            //parent.RequestUpdate();
-            parent.SaveSettings();
-            parent.UpdateSettings();
         }
 
         private void ActionButton_OnClick(object sender, RoutedEventArgs e)
@@ -192,6 +176,54 @@ namespace HotkeyWidget {
                 caller.Content = new FontConverter().ConvertToInvariantString(selectedFont);
                 caller.Tag = selectedFont;
             }
+
+            parent.OverlayFont = overlayFontSelect.Tag as Font;
+
+            parent.SaveSettings();
+            parent.UpdateSettings();
+        }
+
+        private void globalThemeCheck_Click(object sender, RoutedEventArgs e)
+        {
+            parent.UseGlobal = globalThemeCheck.IsChecked ?? false;
+            bgColorSelect.IsEnabled = !parent.UseGlobal;
+
+            parent.SaveSettings();
+            parent.UpdateSettings();
+        }
+
+        private void textBoxFile_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            parent.LoadImage(textBoxFile.Text);
+
+            parent.SaveSettings();
+            parent.UpdateSettings();
+        }
+
+        private void OverlayOffset_ValueChanged(object sender, HandyControl.Data.FunctionEventArgs<double> e)
+        {
+            parent.OverlayXOffset = (int)OverlayXOffset.Value;
+            parent.OverlayYOffset = (int)OverlayYOffset.Value;
+
+            parent.SaveSettings();
+            parent.UpdateSettings();
+        }
+
+        private void OverlayPos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            parent.OverlayXPos = OverlayXPos.SelectedIndex;
+            parent.OverlayYPos = OverlayYPos.SelectedIndex;
+
+            parent.SaveSettings();
+            parent.UpdateSettings();
+        }
+
+        private void textOverlay_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            parent.OverlayText = textOverlay.Text;
+
+            parent.SaveSettings();
+            parent.UpdateSettings();
         }
     }
 }

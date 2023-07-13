@@ -17,11 +17,11 @@
                 <ColumnDefinition Width="60"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Content="File Path" FontSize="10" HorizontalAlignment="Stretch"/>
-            <TextBox x:Name="textBoxFile" IsManipulationEnabled="True" MaxLines="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
+            <TextBox x:Name="textBoxFile" IsManipulationEnabled="True" MaxLines="1" Grid.Column="1" HorizontalAlignment="Stretch" TextChanged="textBoxFile_TextChanged"/>
             <Button x:Name="buttonFile" Content="File..." Click="buttonFile_Click" Grid.Column="2" HorizontalAlignment="Stretch" FontSize="10" Background="{DynamicResource PrimaryBrush}"/>
         </Grid>
 
-        <CheckBox x:Name="globalThemeCheck" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="6, 2" Content="Use Global Theme" FontSize="10"></CheckBox>
+        <CheckBox x:Name="globalThemeCheck" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="6, 2" Content="Use Global Theme" FontSize="10" Click="globalThemeCheck_Click"></CheckBox>
 
         <Grid Margin="2">
             <Grid.ColumnDefinitions>
@@ -40,7 +40,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Content="Overlay Text" FontSize="10" HorizontalAlignment="Stretch"/>
-                    <TextBox x:Name="textOverlay" Grid.Column="1" HorizontalAlignment="Stretch" AcceptsReturn="True" TextWrapping="NoWrap"/>
+                    <TextBox x:Name="textOverlay" Grid.Column="1" HorizontalAlignment="Stretch" AcceptsReturn="True" TextWrapping="NoWrap" TextChanged="textOverlay_TextChanged"/>
                 </Grid>
 
                 <Grid Margin="2">
@@ -74,7 +74,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Overlay Position" FontSize="10" HorizontalAlignment="Stretch" Grid.ColumnSpan="4"></Label>
                     <Label Grid.Row="1" Content="Horizontal:" FontSize="10" HorizontalAlignment="Stretch"></Label>
-                    <ComboBox Grid.Row="1" Grid.Column="1" x:Name="OverlayXPos">
+                    <ComboBox Grid.Row="1" Grid.Column="1" x:Name="OverlayXPos" SelectionChanged="OverlayPos_SelectionChanged">
                         <ComboBox.Items>
                             <ComboBoxItem Content="Center"></ComboBoxItem>
                             <ComboBoxItem Content="Left"></ComboBoxItem>
@@ -82,7 +82,7 @@
                         </ComboBox.Items>
                     </ComboBox>
                     <Label Grid.Row="1" Content="Vertical:" FontSize="10" Grid.Column="2" HorizontalAlignment="Stretch"></Label>
-                    <ComboBox Grid.Row="1" Grid.Column="3" x:Name="OverlayYPos">
+                    <ComboBox Grid.Row="1" Grid.Column="3" x:Name="OverlayYPos" SelectionChanged="OverlayPos_SelectionChanged">
                         <ComboBox.Items>
                             <ComboBoxItem Content="Center"></ComboBoxItem>
                             <ComboBoxItem Content="Top"></ComboBoxItem>
@@ -108,9 +108,9 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Overlay Offset" FontSize="10" HorizontalAlignment="Stretch" Grid.ColumnSpan="4"></Label>
                     <Label Grid.Row="1" Content="X:" FontSize="10" HorizontalAlignment="Stretch"></Label>
-                    <hc:NumericUpDown Grid.Row="1" Grid.Column="1" x:Name="OverlayXOffset"></hc:NumericUpDown>
+                    <hc:NumericUpDown Grid.Row="1" Grid.Column="1" x:Name="OverlayXOffset" ValueChanged="OverlayOffset_ValueChanged"></hc:NumericUpDown>
                     <Label Grid.Row="1" Content="Y:" FontSize="10" Grid.Column="2" HorizontalAlignment="Stretch"></Label>
-                    <hc:NumericUpDown Grid.Row="1" Grid.Column="3" x:Name="OverlayYOffset"></hc:NumericUpDown>
+                    <hc:NumericUpDown Grid.Row="1" Grid.Column="3" x:Name="OverlayYOffset" ValueChanged="OverlayOffset_ValueChanged"></hc:NumericUpDown>
                 </Grid>
             </StackPanel>
         </Expander>
@@ -124,7 +124,5 @@
                 <Button x:Name="actionButton" Content="Add Action" Click="ActionButton_OnClick"  Margin="2" HorizontalAlignment="Stretch" Background="{DynamicResource PrimaryBrush}"/>
             </StackPanel>
         </Expander>
-
-        <Button x:Name="buttonApply" Content="Save" Click="buttonApply_Click" Margin="2, 10, 2, 0" HorizontalAlignment="Stretch" Background="{DynamicResource PrimaryBrush}"/>
     </StackPanel>
 </UserControl>
