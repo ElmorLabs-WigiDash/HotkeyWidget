@@ -30,6 +30,7 @@ namespace HotkeyWidget {
             _parentDevice = parent.WidgetObject.WidgetManager.GetParentDevice(parent) ?? Guid.Empty;
 
             textBoxFile.Text = parent.ImagePath;
+
             try {
                 bgColorSelect.Content = ColorTranslator.ToHtml(parent.BackColor);
             } catch { }
@@ -52,7 +53,8 @@ namespace HotkeyWidget {
 
             globalThemeCheck.IsChecked = parent.UseGlobal;
 
-            bgColorSelect.IsEnabled = !parent.UseGlobal;
+            overlayColorSelect.IsEnabled = !parent.UseGlobal;
+            overlayFontSelect.IsEnabled = !parent.UseGlobal;
 
             UpdateActionList();
 
@@ -186,7 +188,8 @@ namespace HotkeyWidget {
         private void globalThemeCheck_Click(object sender, RoutedEventArgs e)
         {
             parent.UseGlobal = globalThemeCheck.IsChecked ?? false;
-            bgColorSelect.IsEnabled = !parent.UseGlobal;
+            overlayColorSelect.IsEnabled = !parent.UseGlobal;
+            overlayFontSelect.IsEnabled = !parent.UseGlobal;
 
             parent.SaveSettings();
             parent.UpdateSettings();
@@ -211,6 +214,9 @@ namespace HotkeyWidget {
 
         private void OverlayPos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (OverlayXPos.SelectedIndex == -1 || OverlayYPos.SelectedIndex == -1)
+                return;
+
             parent.OverlayXPos = OverlayXPos.SelectedIndex;
             parent.OverlayYPos = OverlayYPos.SelectedIndex;
 
