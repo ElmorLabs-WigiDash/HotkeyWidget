@@ -55,6 +55,7 @@ namespace HotkeyWidget {
 
             overlayColorSelect.IsEnabled = !parent.UseGlobal;
             overlayFontSelect.IsEnabled = !parent.UseGlobal;
+            bgColorSelect.IsEnabled = !parent.UseGlobal;
 
             UpdateActionList();
 
@@ -195,6 +196,7 @@ namespace HotkeyWidget {
             parent.UseGlobal = globalThemeCheck.IsChecked ?? false;
             overlayColorSelect.IsEnabled = !parent.UseGlobal;
             overlayFontSelect.IsEnabled = !parent.UseGlobal;
+            bgColorSelect.IsEnabled = !parent.UseGlobal;
 
             parent.SaveSettings();
             parent.UpdateSettings();
