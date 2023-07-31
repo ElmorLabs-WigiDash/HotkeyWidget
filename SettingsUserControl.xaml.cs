@@ -91,21 +91,17 @@ namespace HotkeyWidget {
 
         private void ActionButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, parent.ActionGuid);
-            //bool addSuccess = parent.WidgetObject.WidgetManager.CreateAction(_parentDevice, parent.ActionGuid, parent.Guid.ToString(), out Guid actionGuid);
             Guid actionGuid = Guid.NewGuid();
 
             bool addSuccess = parent.WidgetObject.WidgetManager.EditAction(_parentDevice, actionGuid, parent.Guid.ToString());
 
-            //if (!addSuccess || actionGuid == Guid.Empty) return;
             if (!addSuccess) return;
             parent.Actions.Add(actionGuid);
 
             UpdateActionList();
 
-            //actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
-            //actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
-            //_actionGuid = actionGuid;
+            parent.SaveSettings();
+            parent.UpdateSettings();
         }
         
         private void UpdateActionList()
@@ -130,12 +126,18 @@ namespace HotkeyWidget {
                     parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, actionGuid);
                     parent.Actions.Remove(actionGuid);
                     UpdateActionList();
+
+                    parent.SaveSettings();
+                    parent.UpdateSettings();
                 });
 
                 Action editAction = new Action(() =>
                 {
                     parent.WidgetObject.WidgetManager.EditAction(_parentDevice, actionGuid);
                     UpdateActionList();
+
+                    parent.SaveSettings();
+                    parent.UpdateSettings();
                 });
 
                 Action<bool> moveAction = new Action<bool>((bool moveUp) => {
@@ -160,6 +162,9 @@ namespace HotkeyWidget {
                     }
 
                     UpdateActionList();
+
+                    parent.SaveSettings();
+                    parent.UpdateSettings();
                 });
 
                 ActionRow actionRow = new ActionRow(actionString, deleteAction, editAction, moveAction);

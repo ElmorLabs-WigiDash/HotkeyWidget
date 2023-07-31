@@ -15,47 +15,54 @@ namespace HotkeyWidget {
     {
         public HotkeyWidgetInstance(HotkeyWidget parent, WidgetSize widgetSize, Guid instanceGuid) : base(parent, widgetSize, instanceGuid)
         {
-            LoadHotkeyActions();
-            //LoadSettings();
-            //base.Initialize(parent, widgetSize, instanceGuid);
         }
 
         public List<Guid> Actions = new List<Guid>();
 
-        public new void ClickEvent(ClickType click_type, int x, int y) {
+        public override void ClickEvent(ClickType click_type, int x, int y) {
             if(click_type == ClickType.Single) {
                 foreach (Guid guid in Actions)
                 {
-                    base.WidgetObject.WidgetManager.TriggerAction(guid);
+                    WidgetObject.WidgetManager.TriggerAction(guid);
                 }
             }
 
             base.ClickEvent(click_type, x, y);
         }
 
-        public new void SaveSettings() {
-            base.WidgetObject.WidgetManager.StoreSetting(this, "HotkeyActions", string.Join(",", Actions.Select(x => x.ToString()).ToArray()), false);
-
+        public override void SaveSettings() {
+            WidgetObject.WidgetManager.StoreSetting(this, "HotkeyActions", string.Join(",", Actions.Select(x => x.ToString()).ToArray()), false);
             base.SaveSettings();
         }
 
-        public void LoadHotkeyActions() {
-            if (base.WidgetObject.WidgetManager.LoadSetting(this, "HotkeyActions", out string actionGuidsString))
+        public override void LoadSettings()
+        {
+            if (WidgetObject.WidgetManager.LoadSetting(this, "HotkeyActions", out string actionGuidsString))
             {
-                string[] guids = actionGuidsString.Split(',');
-                foreach (string guidString in guids)
+                if (!string.IsNullOrEmpty(actionGuidsString))
                 {
-                    Guid.TryParse(guidString, out Guid actionGuid);
-                    Actions.Add(actionGuid);
+                    string[] guids = actionGuidsString.Split(',');
+                    foreach (string guidString in guids)
+                    {
+                        bool guidParseResult = Guid.TryParse(guidString, out Guid actionGuid);
+
+                        if (!guidParseResult) continue;
+
+                        string actionString = WidgetObject.WidgetManager.GetActionString(WidgetObject.WidgetManager.GetParentDevice(this) ?? Guid.Empty, actionGuid);
+                        if (string.IsNullOrEmpty(actionString)) continue;
+
+                        Actions.Add(actionGuid);
+                    }
                 }
             }
+            base.LoadSettings();
         }
 
         public void OnRemove()
         {
             foreach (Guid actionGuid in Actions)
             {
-                base.WidgetObject.WidgetManager.RemoveAction(base.WidgetObject.WidgetManager.GetParentDevice(this) ?? Guid.Empty, actionGuid);
+                WidgetObject.WidgetManager.RemoveAction(WidgetObject.WidgetManager.GetParentDevice(this) ?? Guid.Empty, actionGuid);
             }
         }
     }
