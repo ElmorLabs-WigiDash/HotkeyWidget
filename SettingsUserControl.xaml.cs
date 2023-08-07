@@ -32,7 +32,7 @@ namespace HotkeyWidget {
             parent = widget_instance;
             _parentDevice = parent.WidgetObject.WidgetManager.GetParentDevice(parent) ?? Guid.Empty;
 
-            textBoxFile.Text = parent.ImagePath;
+            textBoxFile.Text = Path.GetFileName(parent.ImagePath);
 
             try {
                 bgColorSelect.Content = ColorTranslator.ToHtml(parent.BackColor);
@@ -88,11 +88,10 @@ namespace HotkeyWidget {
             ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.tif;*.bmp;*.ico;*.svg";
             bool? result = ofd.ShowDialog();
 
-            string filename = ofd.FileName;
-
             if (result != null && result != false)
             {
-                textBoxFile.Text = filename;
+                textBoxFile.Text = Path.GetFileName(ofd.FileName);
+                parent.ImportImage(ofd.FileName);
             }
         }
 
@@ -203,14 +202,6 @@ namespace HotkeyWidget {
             overlayColorSelect.IsEnabled = !parent.UseGlobal;
             overlayFontSelect.IsEnabled = !parent.UseGlobal;
             bgColorSelect.IsEnabled = !parent.UseGlobal;
-
-            parent.SaveSettings();
-            parent.UpdateSettings();
-        }
-
-        private void textBoxFile_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            parent.LoadImage(textBoxFile.Text);
 
             parent.SaveSettings();
             parent.UpdateSettings();
