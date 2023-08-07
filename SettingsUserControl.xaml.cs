@@ -1,9 +1,12 @@
 ﻿using Microsoft.Win32;
 using PictureWidget;
+using Svg;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using Utility;
@@ -82,11 +85,14 @@ namespace HotkeyWidget {
         private void buttonFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.tif;*.bmp;*.ico";
+            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.tif;*.bmp;*.ico;*.svg";
             bool? result = ofd.ShowDialog();
+
+            string filename = ofd.FileName;
+
             if (result != null && result != false)
             {
-                textBoxFile.Text = ofd.FileName;
+                textBoxFile.Text = filename;
             }
         }
 
