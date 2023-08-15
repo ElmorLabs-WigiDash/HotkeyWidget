@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using System.Collections.ObjectModel;
 
 namespace HotkeyWidget {
     public partial class HotkeyWidgetInstance : PictureWidgetInstance, IWidgetInstanceWithRemoval
@@ -17,7 +18,7 @@ namespace HotkeyWidget {
         {
         }
 
-        public List<Guid> Actions = new List<Guid>();
+        public ObservableCollection<Guid> Actions = new ObservableCollection<Guid>();
 
         public override void ClickEvent(ClickType click_type, int x, int y) {
             if(click_type == ClickType.Single) {

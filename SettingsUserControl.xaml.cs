@@ -112,16 +112,18 @@ namespace HotkeyWidget {
         
         private void UpdateActionList()
         {
+            actionList.Children.Clear();
+
             if (parent.Actions.Count <= 0)
             {
+                actionList.Visibility = Visibility.Collapsed;
                 NoActionLabel.Visibility = Visibility.Visible;
                 return;
             } else
             {
+                actionList.Visibility = Visibility.Visible;
                 NoActionLabel.Visibility = Visibility.Collapsed;
             }
-
-            actionList.Children.Clear();
 
             foreach (Guid actionGuid in parent.Actions)
             {
