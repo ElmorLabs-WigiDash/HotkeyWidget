@@ -36,7 +36,7 @@ namespace HotkeyWidget {
         }
 
         public Bitmap GetWidgetPreview(WidgetSize widget_size) {
-            Color BackColor = Color.FromArgb(35, 35, 35);
+            Color BackColor = Color.FromArgb(48, 48, 48);
             Size size = widget_size.ToSize();
             Bitmap BitmapPreview = new Bitmap(size.Width, size.Height);
 
