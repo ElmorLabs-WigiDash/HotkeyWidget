@@ -8,7 +8,7 @@ namespace HotkeyWidget {
     public partial class HotkeyWidgetInstance : PictureWidgetInstance {
         private SettingsUserControl _userControl;
 
-        public new UserControl GetSettingsControl()
+        public override UserControl GetSettingsControl()
         {
             if (_userControl == null)
             {

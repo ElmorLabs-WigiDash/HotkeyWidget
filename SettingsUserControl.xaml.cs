@@ -102,6 +102,8 @@ namespace HotkeyWidget {
             bool addSuccess = parent.WidgetObject.WidgetManager.EditAction(_parentDevice, actionGuid, parent.Guid.ToString());
 
             if (!addSuccess) return;
+
+            parent.WidgetObject.WidgetManager.BindAction(parent, actionGuid);
             parent.Actions.Add(actionGuid);
 
             UpdateActionList();
@@ -132,7 +134,9 @@ namespace HotkeyWidget {
                 Action deleteAction = new Action(() =>
                 {
                     parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, actionGuid);
+                    parent.WidgetObject.WidgetManager.UnbindAction(parent, actionGuid);
                     parent.Actions.Remove(actionGuid);
+
                     UpdateActionList();
 
                     parent.SaveSettings();
