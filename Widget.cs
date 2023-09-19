@@ -27,7 +27,7 @@ namespace HotkeyWidget {
         }
 
         public IWidgetInstance CreateWidgetInstance(WidgetSize widget_size, Guid instance_guid) {
-            HotkeyWidgetInstance widget_instance = new HotkeyWidgetInstance(this, widget_size, instance_guid);
+            HotkeyWidgetInstance widget_instance = new HotkeyWidgetInstance(this, widget_size, instance_guid, ResourcePath);
             return widget_instance;
         }
 
