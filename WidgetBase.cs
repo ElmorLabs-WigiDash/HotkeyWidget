@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Drawing;
 
 namespace HotkeyWidget {
-    public partial class HotkeyWidget : IWidgetObject {
-
+    public partial class HotkeyWidget : IWidgetObject
+    {
         // Identity
         public Guid Guid {
             get {
@@ -71,7 +71,6 @@ namespace HotkeyWidget {
                 return GetWidgetPreview(new WidgetSize(1, 1));
             }
         }
-
     }
 
 }

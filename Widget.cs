@@ -46,6 +46,8 @@ namespace HotkeyWidget {
             }
             return BitmapPreview;
         }
+
+        public Bitmap WidgetThumbnail => GetWidgetPreview(SupportedSizes[0]);
     }
 
 }
