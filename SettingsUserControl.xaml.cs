@@ -89,6 +89,9 @@ namespace HotkeyWidget {
                 parent.VectorColor = ColorTranslator.FromHtml(vectorColorSelect.Content.ToString());
             }
             catch { }
+
+            parent.SaveSettings();
+            parent.UpdateSettings();
         }
 
         private void buttonFile_Click(object sender, RoutedEventArgs e)
