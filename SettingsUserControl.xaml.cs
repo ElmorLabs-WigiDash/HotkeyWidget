@@ -45,6 +45,12 @@ namespace HotkeyWidget {
                 overlayColorSelect.Content = ColorTranslator.ToHtml(parent.OverlayColor);
             } catch { }
 
+            try
+            {
+                vectorColorSelect.Content = ColorTranslator.ToHtml(parent.VectorColor);
+            }
+            catch { }
+
             overlayFontSelect.Content = new FontConverter().ConvertToInvariantString(parent.OverlayFont);
             overlayFontSelect.Tag = parent.OverlayFont;
 
@@ -55,6 +61,8 @@ namespace HotkeyWidget {
             OverlayYOffset.Value = parent.OverlayYOffset;
 
             globalThemeCheck.IsChecked = parent.UseGlobal;
+            wordWrapChk.IsChecked = parent.OverlayWrap;
+            autoScaleChk.IsChecked = GraphicsExtension.AutoScale;
 
             overlayColorSelect.IsEnabled = !parent.UseGlobal;
             overlayFontSelect.IsEnabled = !parent.UseGlobal;
@@ -78,20 +86,18 @@ namespace HotkeyWidget {
             {
                 parent.BackColor = ColorTranslator.FromHtml(bgColorSelect.Content.ToString());
                 parent.OverlayColor = ColorTranslator.FromHtml(overlayColorSelect.Content.ToString());
+                parent.VectorColor = ColorTranslator.FromHtml(vectorColorSelect.Content.ToString());
             }
             catch { }
         }
 
         private void buttonFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.tif;*.bmp;*.ico;*.svg";
-            bool? result = ofd.ShowDialog();
-
-            if (result != null && result != false)
+            string result = parent.WidgetObject.WidgetManager.RequestImageSelection(string.Empty);
+            if (result != null && result != string.Empty)
             {
-                textBoxFile.Text = Path.GetFileName(ofd.FileName);
-                parent.ImportImage(ofd.FileName);
+                textBoxFile.Text = Path.GetFileName(result);
+                parent.ImportImage(result);
             }
         }
 
@@ -247,6 +253,22 @@ namespace HotkeyWidget {
             parent.WidgetObject.WidgetManager.RemoveFile(parent, "Image");
             parent.ImagePath = string.Empty;
             textBoxFile.Text = string.Empty;
+
+            parent.SaveSettings();
+            parent.UpdateSettings();
+        }
+
+        private void autoScaleChk_Click(object sender, RoutedEventArgs e)
+        {
+            GraphicsExtension.AutoScale = autoScaleChk.IsChecked == true;
+
+            parent.SaveSettings();
+            parent.UpdateSettings();
+        }
+
+        private void wordWrapChk_Click(object sender, RoutedEventArgs e)
+        {
+            parent.OverlayWrap = wordWrapChk.IsChecked == true;
 
             parent.SaveSettings();
             parent.UpdateSettings();
