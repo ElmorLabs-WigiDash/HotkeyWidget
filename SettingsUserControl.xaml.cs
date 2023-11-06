@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using HandyControl.Data;
+using Microsoft.Win32;
 using PictureWidget;
 using Svg;
 using System;
@@ -50,6 +51,8 @@ namespace HotkeyWidget {
                 vectorColorSelect.Content = ColorTranslator.ToHtml(parent.VectorColor);
             }
             catch { }
+
+            vectorScaleSelect.Value = parent.VectorScale * 100;
 
             overlayFontSelect.Content = new FontConverter().ConvertToInvariantString(parent.OverlayFont);
             overlayFontSelect.Tag = parent.OverlayFont;
@@ -272,6 +275,15 @@ namespace HotkeyWidget {
         private void wordWrapChk_Click(object sender, RoutedEventArgs e)
         {
             parent.OverlayWrap = wordWrapChk.IsChecked == true;
+
+            parent.SaveSettings();
+            parent.UpdateSettings();
+        }
+
+        private void VectorScaleSelect_OnValueChanged(object sender, FunctionEventArgs<double> e)
+        {
+            if (parent == null) return;
+            parent.VectorScale = vectorScaleSelect.Value / 100;
 
             parent.SaveSettings();
             parent.UpdateSettings();
