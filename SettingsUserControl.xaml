@@ -28,6 +28,10 @@
 
     <Expander Header="Design" d:IsExpanded="True" Margin="0, 10, 0, 0">
       <StackPanel>
+        <CheckBox x:Name="wordWrapChk" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="2, 6, 2, 2" Content="Word Wrap" FontSize="10" Click="wordWrapChk_Click"></CheckBox>
+        <CheckBox x:Name="autoScaleChk" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="2, 6, 2, 2" Content="Auto Scale Font" FontSize="10" Click="autoScaleChk_Click"></CheckBox>
+        <CheckBox x:Name="globalThemeCheck" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="2, 6, 2, 2" Content="Use Global Theme" FontSize="10" Click="globalThemeCheck_Click"></CheckBox>
+
         <Grid Margin="2">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
@@ -81,10 +85,6 @@
           <Label Content="Vector Scale" FontSize="10" HorizontalAlignment="Stretch"/>
           <hc:NumericUpDown x:Name="vectorScaleSelect" Maximum="100" Minimum="5" Grid.Column="1" HorizontalAlignment="Stretch" ValueChanged="VectorScaleSelect_OnValueChanged"></hc:NumericUpDown>
         </Grid>
-
-        <CheckBox x:Name="wordWrapChk" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="2, 6, 2, 2" Content="Word Wrap" FontSize="10" Click="wordWrapChk_Click"></CheckBox>
-        <CheckBox x:Name="autoScaleChk" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="2, 6, 2, 2" Content="Auto Scale Font" FontSize="10" Click="autoScaleChk_Click"></CheckBox>
-        <CheckBox x:Name="globalThemeCheck" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="2, 6, 2, 2" Content="Use Global Theme" FontSize="10" Click="globalThemeCheck_Click"></CheckBox>
 
         <Grid Margin="2">
           <Grid.RowDefinitions>
