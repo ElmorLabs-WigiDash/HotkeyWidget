@@ -65,7 +65,7 @@ namespace HotkeyWidget {
 
             globalThemeCheck.IsChecked = parent.UseGlobal;
             wordWrapChk.IsChecked = parent.OverlayWrap;
-            autoScaleChk.IsChecked = GraphicsExtension.AutoScale;
+            autoScaleChk.IsChecked = parent.AutoScale;
 
             overlayColorSelect.IsEnabled = !parent.UseGlobal;
             overlayFontSelect.IsEnabled = !parent.UseGlobal;
@@ -266,7 +266,7 @@ namespace HotkeyWidget {
 
         private void autoScaleChk_Click(object sender, RoutedEventArgs e)
         {
-            GraphicsExtension.AutoScale = autoScaleChk.IsChecked == true;
+            parent.AutoScale = autoScaleChk.IsChecked == true;
 
             parent.SaveSettings();
             parent.UpdateSettings();
