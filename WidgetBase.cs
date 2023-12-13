@@ -20,17 +20,17 @@ namespace HotkeyWidget {
         }
         public string Description {
             get {
-                return "A widget for executing hotkey actions";
+                return "Create customizable buttons that execute actions";
             }
         }
         public string Author {
             get {
-                return "Jon Sandström";
+                return "ElmorLabs";
             }
         }
         public string Website {
             get {
-                return "https://www.elmorlabs.com/";
+                return "https://elmorlabs.com/";
             }
         }
         public Version Version {
