@@ -15,7 +15,7 @@ using HandyControl.Tools.Extension;
 namespace HotkeyWidget {
     public partial class HotkeyWidgetInstance : PictureWidgetInstance
     {
-        public HotkeyWidgetInstance(HotkeyWidget parent, WidgetSize widgetSize, Guid instanceGuid, string resourcePath) : base(parent, widgetSize, instanceGuid, resourcePath)
+        public HotkeyWidgetInstance(HotkeyWidgetServer parent, WidgetSize widgetSize, Guid instanceGuid, string resourcePath) : base(parent, widgetSize, instanceGuid, resourcePath)
         {
         }
 

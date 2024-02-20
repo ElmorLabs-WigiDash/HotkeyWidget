@@ -6,7 +6,7 @@ using System.IO;
 using PictureWidget;
 
 namespace HotkeyWidget {
-    public partial class HotkeyWidget : IWidgetObject {
+    public partial class HotkeyWidgetServer : IWidgetObject {
 
         // Functionality
         public string ResourcePath;

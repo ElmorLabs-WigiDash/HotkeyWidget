@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 
 namespace HotkeyWidget {
-    public partial class HotkeyWidget : IWidgetObject
+    public partial class HotkeyWidgetServer : IWidgetObject
     {
         // Identity
         public Guid Guid {
