@@ -114,7 +114,7 @@ namespace HotkeyWidget {
                     }
                     catch (Exception e)
                     {
-                        Logger.Error(e, $"Failed to load image from {HotkeyImagePath}");
+                        //Logger.Error(e, $"Failed to load image from {HotkeyImagePath}");
                     }
                 }
             }
@@ -139,7 +139,7 @@ namespace HotkeyWidget {
                     }
                     catch (Exception e)
                     {
-                        Logger.Error(e, $"Failed to load image from {HotkeyImageToggledPath}");
+                        //Logger.Error(e, $"Failed to load image from {HotkeyImageToggledPath}");
                     }
                 }
             }
