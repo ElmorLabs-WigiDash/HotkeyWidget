@@ -250,6 +250,15 @@ namespace HotkeyWidget.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle Image.
+        /// </summary>
+        public static string SettingsUserControl_ToggleImage {
+            get {
+                return ResourceManager.GetString("SettingsUserControl_ToggleImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Top.
         /// </summary>
         public static string SettingsUserControl_Top {

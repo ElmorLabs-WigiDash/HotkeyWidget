@@ -33,7 +33,8 @@ namespace HotkeyWidget {
             parent = widget_instance;
             _parentDevice = parent.WidgetObject.WidgetManager.GetParentDevice(parent) ?? Guid.Empty;
 
-            textBoxFile.Text = Path.GetFileName(parent.ImagePath);
+            textBoxFile.Text = Path.GetFileName(parent.HotkeyImagePath);
+            textBoxToggleFile.Text = Path.GetFileName(parent.HotkeyImageToggledPath);
 
             try {
                 bgColorSelect.Content = ColorTranslator.ToHtml(parent.BackColor);
@@ -104,7 +105,21 @@ namespace HotkeyWidget {
             {
                 textBoxFile.Text = Path.GetFileName(result);
                 parent.ImportImage(result);
+                parent.HotkeyImagePath = result;
             }
+            parent.UpdateSettings();
+        }
+
+        private void ButtonToggleFile_OnClick(object sender, RoutedEventArgs e)
+        {
+            string result = parent.WidgetObject.WidgetManager.RequestImageSelection(string.Empty);
+            if (result != null && result != string.Empty)
+            {
+                textBoxToggleFile.Text = Path.GetFileName(result);
+                parent.ImportImage(result, "ImageToggle", false);
+                parent.HotkeyImageToggledPath = result;
+            }
+            parent.UpdateSettings();
         }
 
         private void ActionButton_OnClick(object sender, RoutedEventArgs e)
@@ -258,10 +273,24 @@ namespace HotkeyWidget {
         {
             parent.WidgetObject.WidgetManager.RemoveFile(parent, "Image");
             parent.ImagePath = string.Empty;
+
             textBoxFile.Text = string.Empty;
+            parent.HotkeyImagePath = string.Empty;
 
             parent.SaveSettings();
-            parent.UpdateSettings();
+            parent.RemoveImage(false);
+        }
+
+        private void ClearToggleFile_OnClick(object sender, RoutedEventArgs e)
+        {
+            parent.WidgetObject.WidgetManager.RemoveFile(parent, "ImageToggle");
+            parent.ImagePath = string.Empty;
+
+            textBoxToggleFile.Text = string.Empty;
+            parent.HotkeyImageToggledPath = string.Empty;
+
+            parent.SaveSettings();
+            parent.RemoveImage(true);
         }
 
         private void autoScaleChk_Click(object sender, RoutedEventArgs e)

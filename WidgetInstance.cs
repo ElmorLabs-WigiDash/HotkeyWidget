@@ -21,39 +21,149 @@ namespace HotkeyWidget {
 
         public ObservableCollection<Guid> Actions = new ObservableCollection<Guid>();
 
+        private bool _isToggled = false;
+
+        public Image HotkeyImage = null;
+        public Image HotkeyImageToggled = null;
+
+        public string HotkeyImagePath = "";
+        public string HotkeyImageToggledPath = "";
+
         public override void ClickEvent(ClickType click_type, int x, int y) {
             if(click_type == ClickType.Single) {
                 foreach (Guid guid in Actions)
                 {
                     WidgetObject.WidgetManager.TriggerAction(guid);
                 }
+
+                if (_isToggled && HotkeyImagePath != null && HotkeyImage != null)
+                {
+                    ImagePath = HotkeyImagePath;
+                    CachedImagePath = HotkeyImagePath;
+                    CachedImage = HotkeyImage;
+                }
+                else if (!_isToggled && HotkeyImageToggledPath != null && HotkeyImageToggled != null)
+                {
+                    ImagePath = HotkeyImageToggledPath;
+                    CachedImagePath = HotkeyImageToggledPath;
+                    CachedImage = HotkeyImageToggled;
+                }
+
+                _isToggled = !_isToggled;
+
+                DrawFrame();
             }
 
             base.ClickEvent(click_type, x, y);
+        }
+
+        public void RemoveImage(bool isToggled)
+        {
+            if (isToggled)
+            {
+                HotkeyImageToggled = null;
+                HotkeyImageToggledPath = null;
+
+                UpdateImageCache();
+
+                ImagePath = HotkeyImagePath;
+                CachedImagePath = HotkeyImagePath;
+                CachedImage = HotkeyImage;
+
+                _isToggled = false;
+            }
+            else
+            {
+                HotkeyImage = null;
+                HotkeyImagePath = null;
+                
+                UpdateImageCache();
+
+                ImagePath = HotkeyImageToggledPath;
+                CachedImagePath = HotkeyImageToggledPath;
+                CachedImage = HotkeyImage;
+
+                _isToggled = true;
+            }
+
+            DrawFrame();
+        }
+
+        public override void UpdateSettings()
+        {
+            UpdateImageCache();
+
+            base.UpdateSettings();
+        }
+
+        public void UpdateImageCache()
+        {
+            if (!string.IsNullOrEmpty(HotkeyImagePath))
+            {
+                if (Path.GetExtension(HotkeyImagePath) == ".svg")
+                {
+                    CachedVectorArgs = (VectorColor, VectorScale);
+                    HotkeyImage = GetBitmapFromSvg(HotkeyImagePath);
+                }
+                else
+                {
+                    try
+                    {
+                        byte[] imageBytes = File.ReadAllBytes(HotkeyImagePath);
+                        HotkeyImage = Image.FromStream(new MemoryStream(imageBytes));
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Error(e, $"Failed to load image from {HotkeyImagePath}");
+                    }
+                }
+            }
+            else
+            {
+                HotkeyImage = null;
+            }
+
+            if (!string.IsNullOrEmpty(HotkeyImageToggledPath))
+            {
+                if (Path.GetExtension(HotkeyImageToggledPath) == ".svg")
+                {
+                    CachedVectorArgs = (VectorColor, VectorScale);
+                    HotkeyImageToggled = GetBitmapFromSvg(HotkeyImageToggledPath);
+                }
+                else
+                {
+                    try
+                    {
+                        byte[] imageBytes = File.ReadAllBytes(HotkeyImageToggledPath);
+                        HotkeyImageToggled = Image.FromStream(new MemoryStream(imageBytes));
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Error(e, $"Failed to load image from {HotkeyImageToggledPath}");
+                    }
+                }
+            }
+            else
+            {
+                HotkeyImageToggled = null;
+            }
         }
 
         public override void LoadSettings()
         {
             Actions.AddRange(WidgetObject.WidgetManager.GetBoundActions(this));
 
-            //if (WidgetObject.WidgetManager.LoadSetting(this, "HotkeyActions", out string actionGuidsString))
-            //{
-            //    if (!string.IsNullOrEmpty(actionGuidsString))
-            //    {
-            //        string[] guids = actionGuidsString.Split(',');
-            //        foreach (string guidString in guids)
-            //        {
-            //            bool guidParseResult = Guid.TryParse(guidString, out Guid actionGuid);
+            if (WidgetObject.WidgetManager.LoadFile(this, "Image", out string imagePath))
+            {
+                HotkeyImagePath = imagePath;
+            }
 
-            //            if (!guidParseResult) continue;
+            if (WidgetObject.WidgetManager.LoadFile(this, "ImageToggle", out string imageTogglePath))
+            {
+                HotkeyImageToggledPath = imageTogglePath;
+            }
 
-            //            string actionString = WidgetObject.WidgetManager.GetActionString(WidgetObject.WidgetManager.GetParentDevice(this) ?? Guid.Empty, actionGuid);
-            //            if (string.IsNullOrEmpty(actionString)) continue;
-
-            //            Actions.Add(actionGuid);
-            //        }
-            //    }
-            //}
+            UpdateImageCache();
 
             base.LoadSettings();
         }

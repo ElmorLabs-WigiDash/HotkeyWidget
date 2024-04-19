@@ -178,4 +178,7 @@
   <data name="SettingsUserControl_Image" xml:space="preserve">
     <value>Image</value>
   </data>
+  <data name="SettingsUserControl_ToggleImage" xml:space="preserve">
+    <value>Toggle Image</value>
+  </data>
 </root>
