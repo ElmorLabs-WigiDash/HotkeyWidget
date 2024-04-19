@@ -61,6 +61,24 @@ namespace HotkeyWidget.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create customizable buttons that execute actions.
+        /// </summary>
+        public static string HotkeyWidgetServer_Description_CreateCustomizableButtonsThatExecuteActions {
+            get {
+                return ResourceManager.GetString("HotkeyWidgetServer_Description_CreateCustomizableButtonsThatExecuteActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hotkey.
+        /// </summary>
+        public static string HotkeyWidgetServer_Name_Hotkey {
+            get {
+                return ResourceManager.GetString("HotkeyWidgetServer_Name_Hotkey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Action.
         /// </summary>
         public static string SettingsUserControl_AddAction {

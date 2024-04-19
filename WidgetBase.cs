@@ -15,12 +15,12 @@ namespace HotkeyWidget {
         }
         public string Name {
             get {
-                return "Hotkey";
+                return HotkeyWidget.Properties.Resources.HotkeyWidgetServer_Name_Hotkey;
             }
         }
         public string Description {
             get {
-                return "Create customizable buttons that execute actions";
+                return HotkeyWidget.Properties.Resources.HotkeyWidgetServer_Description_CreateCustomizableButtonsThatExecuteActions;
             }
         }
         public string Author {

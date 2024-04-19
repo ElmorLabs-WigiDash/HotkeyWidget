@@ -181,4 +181,10 @@
   <data name="SettingsUserControl_ToggleImage" xml:space="preserve">
     <value>Toggle Image</value>
   </data>
+  <data name="HotkeyWidgetServer_Name_Hotkey" xml:space="preserve">
+    <value>Hotkey</value>
+  </data>
+  <data name="HotkeyWidgetServer_Description_CreateCustomizableButtonsThatExecuteActions" xml:space="preserve">
+    <value>Create customizable buttons that execute actions</value>
+  </data>
 </root>

@@ -198,4 +198,13 @@
   <data name="SettingsUserControl_Image" xml:space="preserve">
     <value>이미지</value>
   </data>
+  <data name="SettingsUserControl_ToggleImage" xml:space="preserve">
+    <value>토글 이미지</value>
+  </data>
+  <data name="HotkeyWidgetServer_Description_CreateCustomizableButtonsThatExecuteActions" xml:space="preserve">
+    <value>액션을 실행하는 커스텀 버튼을 생성합니다</value>
+  </data>
+  <data name="HotkeyWidgetServer_Name_Hotkey" xml:space="preserve">
+    <value>핫키</value>
+  </data>
 </root>
