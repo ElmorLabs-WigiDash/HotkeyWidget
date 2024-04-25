@@ -20,6 +20,7 @@ namespace HotkeyWidget {
         }
 
         public ObservableCollection<Guid> Actions = new ObservableCollection<Guid>();
+        public ObservableCollection<Guid> ActionsToggled = new ObservableCollection<Guid>();
 
         private bool _isToggled = false;
 
@@ -31,22 +32,37 @@ namespace HotkeyWidget {
 
         public override void ClickEvent(ClickType click_type, int x, int y) {
             if(click_type == ClickType.Single) {
-                foreach (Guid guid in Actions)
-                {
-                    WidgetObject.WidgetManager.TriggerAction(guid);
-                }
 
-                if (_isToggled && HotkeyImagePath != null && HotkeyImage != null)
+                if(_isToggled)
                 {
-                    ImagePath = HotkeyImagePath;
-                    CachedImagePath = HotkeyImagePath;
-                    CachedImage = HotkeyImage;
-                }
-                else if (!_isToggled && HotkeyImageToggledPath != null && HotkeyImageToggled != null)
+
+                    foreach(Guid guid in ActionsToggled)
+                    {
+                        WidgetObject.WidgetManager.TriggerAction(guid);
+                    }
+
+                    if (HotkeyImagePath != null && HotkeyImage != null)
+                    {
+                        ImagePath = HotkeyImagePath;
+                        CachedImagePath = HotkeyImagePath;
+                        CachedImage = HotkeyImage;
+                    }
+
+                } 
+                else
                 {
-                    ImagePath = HotkeyImageToggledPath;
-                    CachedImagePath = HotkeyImageToggledPath;
-                    CachedImage = HotkeyImageToggled;
+
+                    foreach (Guid guid in Actions)
+                    {
+                        WidgetObject.WidgetManager.TriggerAction(guid);
+                    }
+
+                    if (HotkeyImageToggledPath != null && HotkeyImageToggled != null)
+                    {
+                        ImagePath = HotkeyImageToggledPath;
+                        CachedImagePath = HotkeyImageToggledPath;
+                        CachedImage = HotkeyImageToggled;
+                    }
                 }
 
                 _isToggled = !_isToggled;
@@ -54,7 +70,6 @@ namespace HotkeyWidget {
                 DrawFrame();
             }
 
-            base.ClickEvent(click_type, x, y);
         }
 
         public void RemoveImage(bool isToggled)
@@ -152,6 +167,7 @@ namespace HotkeyWidget {
         public override void LoadSettings()
         {
             Actions.AddRange(WidgetObject.WidgetManager.GetBoundActions(this));
+            ActionsToggled.AddRange(WidgetObject.WidgetManager.GetBoundActions(this, 1));
 
             if (WidgetObject.WidgetManager.LoadFile(this, "Image", out string imagePath))
             {
@@ -167,6 +183,7 @@ namespace HotkeyWidget {
 
             base.LoadSettings();
         }
+
     }
 }
 

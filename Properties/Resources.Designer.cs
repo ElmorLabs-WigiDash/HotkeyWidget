@@ -169,6 +169,15 @@ namespace HotkeyWidget.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hotkey Actions (Toggled).
+        /// </summary>
+        public static string SettingsUserControl_HotkeyActionsToggled {
+            get {
+                return ResourceManager.GetString("SettingsUserControl_HotkeyActionsToggled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Image.
         /// </summary>
         public static string SettingsUserControl_Image {

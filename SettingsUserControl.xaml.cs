@@ -73,6 +73,7 @@ namespace HotkeyWidget {
             bgColorSelect.IsEnabled = !parent.UseGlobal;
 
             UpdateActionList();
+            UpdateActionToggledList();
 
             //actionType.Content = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, _actionGuid);
         }
@@ -119,7 +120,11 @@ namespace HotkeyWidget {
                 parent.ImportImage(result, "ImageToggle", false);
                 parent.HotkeyImageToggledPath = result;
             }
+
             parent.UpdateSettings();
+
+            UpdateActionToggledList();
+
         }
 
         private void ActionButton_OnClick(object sender, RoutedEventArgs e)
@@ -137,8 +142,26 @@ namespace HotkeyWidget {
 
             parent.SaveSettings();
             parent.UpdateSettings();
+
         }
-        
+
+        private void ActionToggledButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Guid actionGuid = Guid.NewGuid();
+
+            bool addSuccess = parent.WidgetObject.WidgetManager.EditAction(_parentDevice, actionGuid, parent.Guid.ToString());
+
+            if (!addSuccess) return;
+
+            parent.WidgetObject.WidgetManager.BindAction(parent, actionGuid, 1);
+            parent.ActionsToggled.Add(actionGuid);
+
+            UpdateActionToggledList();
+
+            parent.SaveSettings();
+            parent.UpdateSettings();
+        }
+
         private void UpdateActionList()
         {
             actionList.Children.Clear();
@@ -148,7 +171,8 @@ namespace HotkeyWidget {
                 actionList.Visibility = Visibility.Collapsed;
                 NoActionLabel.Visibility = Visibility.Visible;
                 return;
-            } else
+            }
+            else
             {
                 actionList.Visibility = Visibility.Visible;
                 NoActionLabel.Visibility = Visibility.Collapsed;
@@ -187,7 +211,8 @@ namespace HotkeyWidget {
                     {
                         int newIndex = (index - 1).Clamp(0, parent.Actions.Count - 1);
                         parent.Actions.Insert(newIndex, actionGuid);
-                    } else
+                    }
+                    else
                     {
                         if (index + 1 >= parent.Actions.Count)
                         {
@@ -210,6 +235,90 @@ namespace HotkeyWidget {
 
                 actionList.Children.Add(actionRow);
             }
+        }
+        private void UpdateActionToggledList()
+        {
+            actionListToggled.Children.Clear();
+
+            if (parent.HotkeyImageToggled == null)
+            {
+                expanderActionsToggled.Visibility = Visibility.Hidden;
+                return;
+
+            }
+
+            expanderActionsToggled.Visibility = Visibility.Visible;
+
+            if (parent.ActionsToggled.Count <= 0)
+            {
+                actionListToggled.Visibility = Visibility.Collapsed;
+                NoActionLabelToggled.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                actionListToggled.Visibility = Visibility.Visible;
+                NoActionLabelToggled.Visibility = Visibility.Collapsed;
+            }
+
+            foreach (Guid actionGuid in parent.ActionsToggled)
+            {
+                string actionString = parent.WidgetObject.WidgetManager.GetActionString(_parentDevice, actionGuid);
+
+                Action deleteAction = new Action(() =>
+                {
+                    parent.WidgetObject.WidgetManager.RemoveAction(_parentDevice, actionGuid);
+                    parent.WidgetObject.WidgetManager.UnbindAction(parent, actionGuid, 1);
+                    parent.ActionsToggled.Remove(actionGuid);
+
+                    UpdateActionToggledList();
+
+                    parent.SaveSettings();
+                    parent.UpdateSettings();
+                });
+
+                Action editAction = new Action(() =>
+                {
+                    parent.WidgetObject.WidgetManager.EditAction(_parentDevice, actionGuid);
+                    UpdateActionToggledList();
+
+                    parent.SaveSettings();
+                    parent.UpdateSettings();
+                });
+
+                Action<bool> moveAction = new Action<bool>((bool moveUp) => {
+                    int index = parent.ActionsToggled.IndexOf(actionGuid);
+                    parent.ActionsToggled.Remove(actionGuid);
+
+                    if (moveUp)
+                    {
+                        int newIndex = (index - 1).Clamp(0, parent.ActionsToggled.Count - 1);
+                        parent.ActionsToggled.Insert(newIndex, actionGuid);
+                    }
+                    else
+                    {
+                        if (index + 1 >= parent.ActionsToggled.Count)
+                        {
+                            parent.ActionsToggled.Add(actionGuid);
+                        }
+                        else
+                        {
+                            int newIndex = (index + 1).Clamp(0, parent.ActionsToggled.Count - 1);
+                            parent.ActionsToggled.Insert(newIndex, actionGuid);
+                        }
+                    }
+
+                    UpdateActionToggledList();
+
+                    parent.SaveSettings();
+                    parent.UpdateSettings();
+                });
+
+                ActionRow actionRow = new ActionRow(actionString, deleteAction, editAction, moveAction);
+
+                actionListToggled.Children.Add(actionRow);
+            }
+
         }
 
         private void overlayFontSelect_Click(object sender, RoutedEventArgs e)
@@ -291,6 +400,8 @@ namespace HotkeyWidget {
 
             parent.SaveSettings();
             parent.RemoveImage(true);
+
+            UpdateActionToggledList();
         }
 
         private void autoScaleChk_Click(object sender, RoutedEventArgs e)

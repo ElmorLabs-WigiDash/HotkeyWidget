@@ -163,5 +163,16 @@
         <Button x:Name="actionButton" Content="{x:Static properties:Resources.SettingsUserControl_AddAction}" Click="ActionButton_OnClick"  Margin="2" HorizontalAlignment="Stretch" Background="{DynamicResource PrimaryBrush}"/>
       </StackPanel>
     </Expander>
-  </StackPanel>
+
+    <Expander x:Name="expanderActionsToggled" Header="{x:Static properties:Resources.SettingsUserControl_HotkeyActionsToggled}" d:IsExpanded="True" Margin="0, 10, 0, 0">
+        <StackPanel Margin="2">
+            <Border Background="Black" CornerRadius="5" Height="40" x:Name="NoActionLabelToggled" Margin="2">
+                <TextBlock Text="{x:Static properties:Resources.SettingsUserControl_NoActions}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </Border>
+            <StackPanel x:Name="actionListToggled" Margin="2" Background="{DynamicResource SecondaryRegionBrush}"></StackPanel>
+            <Button x:Name="actionButtonToggled" Content="{x:Static properties:Resources.SettingsUserControl_AddAction}" Click="ActionToggledButton_OnClick"  Margin="2" HorizontalAlignment="Stretch" Background="{DynamicResource PrimaryBrush}"/>
+            </StackPanel>
+        </Expander>
+
+    </StackPanel>
 </UserControl>

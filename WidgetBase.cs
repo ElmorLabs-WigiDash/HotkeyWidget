@@ -35,14 +35,14 @@ namespace HotkeyWidget {
         }
         public Version Version {
             get {
-                return new Version(1,0,3);
+                return new Version(1,0,4);
             }
         }
 
         // Capabilities
         public SdkVersion TargetSdk {
             get {
-                return SdkVersion.Version_0;
+                return WidgetUtility.CurrentSdkVersion;
             }
         }
 
