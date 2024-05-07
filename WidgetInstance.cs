@@ -33,7 +33,7 @@ namespace HotkeyWidget {
         public override void ClickEvent(ClickType click_type, int x, int y) {
             if(click_type == ClickType.Single) {
 
-                if(_isToggled)
+                if(!HotkeyImageToggledPath.IsNullOrEmpty() &&  _isToggled)
                 {
 
                     foreach(Guid guid in ActionsToggled)
@@ -41,7 +41,7 @@ namespace HotkeyWidget {
                         WidgetObject.WidgetManager.TriggerAction(guid);
                     }
 
-                    if (HotkeyImagePath != null && HotkeyImage != null)
+                    if (!HotkeyImagePath.IsNullOrEmpty() && HotkeyImage != null)
                     {
                         ImagePath = HotkeyImagePath;
                         CachedImagePath = HotkeyImagePath;
@@ -57,7 +57,7 @@ namespace HotkeyWidget {
                         WidgetObject.WidgetManager.TriggerAction(guid);
                     }
 
-                    if (HotkeyImageToggledPath != null && HotkeyImageToggled != null)
+                    if (!HotkeyImageToggledPath.IsNullOrEmpty() && HotkeyImageToggled != null)
                     {
                         ImagePath = HotkeyImageToggledPath;
                         CachedImagePath = HotkeyImageToggledPath;
