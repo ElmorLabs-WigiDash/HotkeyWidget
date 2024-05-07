@@ -1,14 +1,8 @@
-﻿using WigiDashWidgetFramework;
-using WigiDashWidgetFramework.WidgetUtility;
+﻿using WigiDashWidgetFramework.WidgetUtility;
 using PictureWidget;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using System.Collections.ObjectModel;
 using HandyControl.Tools.Extension;
 
