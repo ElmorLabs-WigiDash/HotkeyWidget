@@ -35,7 +35,7 @@ namespace HotkeyWidget {
         }
         public Version Version {
             get {
-                return new Version(1,0,5);
+                return new Version(1,0,6);
             }
         }
 

@@ -27,39 +27,41 @@ namespace HotkeyWidget {
         public override void ClickEvent(ClickType click_type, int x, int y) {
             if(click_type == ClickType.Single) {
 
-                if(!HotkeyImageToggledPath.IsNullOrEmpty() &&  _isToggled)
+                if(_isToggled && ActionsToggled.Count != 0)
                 {
-
-                    foreach(Guid guid in ActionsToggled)
+                    foreach (Guid guid in ActionsToggled)
                     {
                         WidgetObject.WidgetManager.TriggerAction(guid);
                     }
-
-                    if (!HotkeyImagePath.IsNullOrEmpty() && HotkeyImage != null)
-                    {
-                        ImagePath = HotkeyImagePath;
-                        CachedImagePath = HotkeyImagePath;
-                        CachedImage = HotkeyImage;
-                    }
-
-                } 
-                else
+                } else
                 {
-
                     foreach (Guid guid in Actions)
                     {
                         WidgetObject.WidgetManager.TriggerAction(guid);
                     }
+                }
 
-                    if (!HotkeyImageToggledPath.IsNullOrEmpty() && HotkeyImageToggled != null)
+                if(_isToggled && HotkeyImage != null)
+                {
+
+                    ImagePath = HotkeyImagePath;
+                    CachedImagePath = HotkeyImagePath;
+                    CachedImage = HotkeyImage;
+
+                    _isToggled = false;
+
+                } 
+                else
+                {
+                    if (HotkeyImageToggled != null)
                     {
                         ImagePath = HotkeyImageToggledPath;
                         CachedImagePath = HotkeyImageToggledPath;
                         CachedImage = HotkeyImageToggled;
+
+                        _isToggled = true;
                     }
                 }
-
-                _isToggled = !_isToggled;
 
                 DrawFrame();
             }
@@ -156,6 +158,8 @@ namespace HotkeyWidget {
             {
                 HotkeyImageToggled = null;
             }
+
+            CachedImage = null;
         }
 
         public override void LoadSettings()
