@@ -157,7 +157,7 @@
     <value>オーバーレイ位置</value>
   </data>
   <data name="SettingsUserControl_Horizontal" xml:space="preserve">
-    <value>水平</value>
+    <value>水平:</value>
   </data>
   <data name="SettingsUserControl_Center" xml:space="preserve">
     <value>中央</value>
@@ -169,7 +169,7 @@
     <value>右</value>
   </data>
   <data name="SettingsUserControl_Vertical" xml:space="preserve">
-    <value>縦</value>
+    <value>縦:</value>
   </data>
   <data name="SettingsUserControl_CenterVertical" xml:space="preserve">
     <value>中央</value>
@@ -206,5 +206,8 @@
   </data>
   <data name="HotkeyWidgetServer_Description_CreateCustomizableButtonsThatExecuteActions" xml:space="preserve">
     <value>アクションを実行するカスタマイズ可能なボタンを作成</value>
+  </data>
+  <data name="SettingsUserControl_HotkeyActionsToggled" xml:space="preserve">
+    <value>ホットキーアクション（切り替え）</value>
   </data>
 </root>
