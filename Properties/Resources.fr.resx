@@ -117,4 +117,97 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="SettingsUserControl_ImageHeader" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="SettingsUserControl_Select" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="SettingsUserControl_Design" xml:space="preserve">
+    <value>Design</value>
+  </data>
+  <data name="SettingsUserControl_WordWrap" xml:space="preserve">
+    <value>Word wrap</value>
+  </data>
+  <data name="SettingsUserControl_AutoScaleFont" xml:space="preserve">
+    <value>Police auto scale</value>
+  </data>
+  <data name="SettingsUserControl_UseGlobalTheme" xml:space="preserve">
+    <value>Utiliser le thème général</value>
+  </data>
+  <data name="SettingsUserControl_Background" xml:space="preserve">
+    <value>Arrière plan</value>
+  </data>
+  <data name="SettingsUserControl_OverlayText" xml:space="preserve">
+    <value>Texte en surimpression</value>
+  </data>
+  <data name="SettingsUserControl_OverlayFont" xml:space="preserve">
+    <value>Police de la surimpression</value>
+  </data>
+  <data name="SettingsUserControl_OverlayColor" xml:space="preserve">
+    <value>Couleur de la surimpression</value>
+  </data>
+  <data name="SettingsUserControl_VectorColor" xml:space="preserve">
+    <value>Couleur vecteur</value>
+  </data>
+  <data name="SettingsUserControl_VectorScale" xml:space="preserve">
+    <value>Echelle vecteur</value>
+  </data>
+  <data name="SettingsUserControl_OverlayPosition" xml:space="preserve">
+    <value>Position de la surimpression</value>
+  </data>
+  <data name="SettingsUserControl_Horizontal" xml:space="preserve">
+    <value>Horizontale:</value>
+  </data>
+  <data name="SettingsUserControl_Center" xml:space="preserve">
+    <value>Centre</value>
+  </data>
+  <data name="SettingsUserControl_Left" xml:space="preserve">
+    <value>Gauche</value>
+  </data>
+  <data name="SettingsUserControl_Right" xml:space="preserve">
+    <value>Droite</value>
+  </data>
+  <data name="SettingsUserControl_Vertical" xml:space="preserve">
+    <value>Verticale:</value>
+  </data>
+  <data name="SettingsUserControl_CenterVertical" xml:space="preserve">
+    <value>Centre</value>
+  </data>
+  <data name="SettingsUserControl_Top" xml:space="preserve">
+    <value>Haut</value>
+  </data>
+  <data name="SettingsUserControl_Bottom" xml:space="preserve">
+    <value>Bas</value>
+  </data>
+  <data name="SettingsUserControl_AdvancedOptions" xml:space="preserve">
+    <value>Options avancées</value>
+  </data>
+  <data name="SettingsUserControl_OverlayOffset" xml:space="preserve">
+    <value>Décalage de la surimpression</value>
+  </data>
+  <data name="SettingsUserControl_NoActions" xml:space="preserve">
+    <value>Pas d'action</value>
+  </data>
+  <data name="SettingsUserControl_AddAction" xml:space="preserve">
+    <value>Ajouter action</value>
+  </data>
+  <data name="SettingsUserControl_HotkeyActions" xml:space="preserve">
+    <value>Hotkey action</value>
+  </data>
+  <data name="SettingsUserControl_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="SettingsUserControl_ToggleImage" xml:space="preserve">
+    <value>Basculer l'image</value>
+  </data>
+  <data name="HotkeyWidgetServer_Name_Hotkey" xml:space="preserve">
+    <value>Hotkey</value>
+  </data>
+  <data name="HotkeyWidgetServer_Description_CreateCustomizableButtonsThatExecuteActions" xml:space="preserve">
+    <value>Créer des boutons personnalisables qui exécutent des actions</value>
+  </data>
+  <data name="SettingsUserControl_HotkeyActionsToggled" xml:space="preserve">
+    <value>Actions de raccourcis clavier (basculées)</value>
+  </data>
 </root>
