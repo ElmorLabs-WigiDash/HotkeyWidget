@@ -16,12 +16,12 @@
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="60"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="30"></ColumnDefinition>
           </Grid.ColumnDefinitions>
           <Label Content="{x:Static properties:Resources.SettingsUserControl_Image}" FontSize="10" HorizontalAlignment="Stretch"/>
           <TextBox x:Name="textBoxFile" IsManipulationEnabled="True" MaxLines="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
-          <Button x:Name="buttonFile" Content="{x:Static properties:Resources.SettingsUserControl_Select}" Click="buttonFile_Click" Grid.Column="2" HorizontalAlignment="Stretch" FontSize="10" Background="{DynamicResource PrimaryBrush}"/>
+          <Button x:Name="buttonFile" Content="{x:Static properties:Resources.SettingsUserControl_Select}" Click="buttonFile_Click"  Padding="8, 0" MinWidth="60" Grid.Column="2" HorizontalAlignment="Stretch" FontSize="10" Background="{DynamicResource PrimaryBrush}"/>
           <Button x:Name="clearFile" Content="🗑️" Click="clearFile_Click" Grid.Column="3" HorizontalAlignment="Stretch" FontSize="10" Background="{DynamicResource PrimaryBrush}"/>
         </Grid>
 
@@ -29,12 +29,12 @@
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="60"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="30"></ColumnDefinition>
           </Grid.ColumnDefinitions>
           <Label Content="{x:Static properties:Resources.SettingsUserControl_ToggleImage}" FontSize="10" HorizontalAlignment="Stretch"/>
           <TextBox x:Name="textBoxToggleFile" IsManipulationEnabled="True" MaxLines="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
-          <Button x:Name="buttonToggleFile" Content="{x:Static properties:Resources.SettingsUserControl_Select}" Click="ButtonToggleFile_OnClick" Grid.Column="2" HorizontalAlignment="Stretch" FontSize="10" Background="{DynamicResource PrimaryBrush}"/>
+          <Button x:Name="buttonToggleFile" Content="{x:Static properties:Resources.SettingsUserControl_Select}" Padding="8, 0" MinWidth="60" Click="ButtonToggleFile_OnClick" Grid.Column="2" HorizontalAlignment="Stretch" FontSize="10" Background="{DynamicResource PrimaryBrush}"/>
           <Button x:Name="clearToggleFile" Content="🗑️" Click="ClearToggleFile_OnClick" Grid.Column="3" HorizontalAlignment="Stretch" FontSize="10" Background="{DynamicResource PrimaryBrush}"/>
         </Grid>
       </StackPanel>

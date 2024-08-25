@@ -117,4 +117,97 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="SettingsUserControl_ImageHeader" xml:space="preserve">
+    <value>图像</value>
+  </data>
+  <data name="SettingsUserControl_Select" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="SettingsUserControl_Design" xml:space="preserve">
+    <value>设计</value>
+  </data>
+  <data name="SettingsUserControl_WordWrap" xml:space="preserve">
+    <value>自动换行</value>
+  </data>
+  <data name="SettingsUserControl_AutoScaleFont" xml:space="preserve">
+    <value>自动缩放字体</value>
+  </data>
+  <data name="SettingsUserControl_UseGlobalTheme" xml:space="preserve">
+    <value>使用全局主题</value>
+  </data>
+  <data name="SettingsUserControl_Background" xml:space="preserve">
+    <value>背景</value>
+  </data>
+  <data name="SettingsUserControl_OverlayText" xml:space="preserve">
+    <value>文字</value>
+  </data>
+  <data name="SettingsUserControl_OverlayFont" xml:space="preserve">
+    <value>字体</value>
+  </data>
+  <data name="SettingsUserControl_OverlayColor" xml:space="preserve">
+    <value>文字颜色</value>
+  </data>
+  <data name="SettingsUserControl_VectorColor" xml:space="preserve">
+    <value>矢量图颜色</value>
+  </data>
+  <data name="SettingsUserControl_VectorScale" xml:space="preserve">
+    <value>矢量图大小</value>
+  </data>
+  <data name="SettingsUserControl_OverlayPosition" xml:space="preserve">
+    <value>文字位置</value>
+  </data>
+  <data name="SettingsUserControl_Horizontal" xml:space="preserve">
+    <value>水平:</value>
+  </data>
+  <data name="SettingsUserControl_Center" xml:space="preserve">
+    <value>居中对齐</value>
+  </data>
+  <data name="SettingsUserControl_Left" xml:space="preserve">
+    <value>左对齐</value>
+  </data>
+  <data name="SettingsUserControl_Right" xml:space="preserve">
+    <value>右对齐</value>
+  </data>
+  <data name="SettingsUserControl_Vertical" xml:space="preserve">
+    <value>垂直:</value>
+  </data>
+  <data name="SettingsUserControl_CenterVertical" xml:space="preserve">
+    <value>居中对齐</value>
+  </data>
+  <data name="SettingsUserControl_Top" xml:space="preserve">
+    <value>上对齐</value>
+  </data>
+  <data name="SettingsUserControl_Bottom" xml:space="preserve">
+    <value>下对齐</value>
+  </data>
+  <data name="SettingsUserControl_AdvancedOptions" xml:space="preserve">
+    <value>高级设置</value>
+  </data>
+  <data name="SettingsUserControl_OverlayOffset" xml:space="preserve">
+    <value>文字偏移</value>
+  </data>
+  <data name="SettingsUserControl_NoActions" xml:space="preserve">
+    <value>无操作</value>
+  </data>
+  <data name="SettingsUserControl_AddAction" xml:space="preserve">
+    <value>添加操作</value>
+  </data>
+  <data name="SettingsUserControl_HotkeyActions" xml:space="preserve">
+    <value>热键操作</value>
+  </data>
+  <data name="SettingsUserControl_Image" xml:space="preserve">
+    <value>图像</value>
+  </data>
+  <data name="SettingsUserControl_ToggleImage" xml:space="preserve">
+    <value>切换图像</value>
+  </data>
+  <data name="HotkeyWidgetServer_Name_Hotkey" xml:space="preserve">
+    <value>热键</value>
+  </data>
+  <data name="HotkeyWidgetServer_Description_CreateCustomizableButtonsThatExecuteActions" xml:space="preserve">
+    <value>创建可自定义操作的按钮</value>
+  </data>
+  <data name="SettingsUserControl_HotkeyActionsToggled" xml:space="preserve">
+    <value>熱鍵操作（切換）</value>
+  </data>
 </root>
