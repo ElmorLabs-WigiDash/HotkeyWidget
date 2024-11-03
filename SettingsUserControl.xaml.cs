@@ -214,15 +214,15 @@ namespace HotkeyWidget {
                     }
                     else
                     {
-                        if (index + 1 >= parent.Actions.Count)
+                        /*if (index + 1 >= parent.Actions.Count)
                         {
                             parent.Actions.Add(actionGuid);
                         }
                         else
-                        {
-                            int newIndex = (index + 1).Clamp(0, parent.Actions.Count - 1);
+                        {*/
+                            int newIndex = (index + 1).Clamp(0, parent.Actions.Count);
                             parent.Actions.Insert(newIndex, actionGuid);
-                        }
+                        //}
                     }
 
                     UpdateActionList();

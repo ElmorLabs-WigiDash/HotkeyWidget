@@ -9,8 +9,10 @@ using HandyControl.Tools.Extension;
 namespace HotkeyWidget {
     public partial class HotkeyWidgetInstance : PictureWidgetInstance
     {
+
         public HotkeyWidgetInstance(HotkeyWidgetServer parent, WidgetSize widgetSize, Guid instanceGuid, string resourcePath) : base(parent, widgetSize, instanceGuid, resourcePath)
         {
+            
         }
 
         public ObservableCollection<Guid> Actions = new ObservableCollection<Guid>();
@@ -98,6 +100,32 @@ namespace HotkeyWidget {
             }
 
             DrawFrame();
+        }
+
+        public override void SaveSettings()
+        {
+            base.SaveSettings();
+
+            // Unbind actions to fix the order
+            foreach (Guid actionGuid in Actions)
+            {
+                base.WidgetObject.WidgetManager.UnbindAction(this, actionGuid);
+            }
+            foreach (Guid actionGuid in ActionsToggled)
+            {
+                base.WidgetObject.WidgetManager.UnbindAction(this, actionGuid, 1);
+            }
+
+            // Rebind actions
+            foreach (Guid actionGuid in Actions)
+            {
+                base.WidgetObject.WidgetManager.BindAction(this, actionGuid);
+            }
+            foreach (Guid actionGuid in ActionsToggled)
+            {
+                base.WidgetObject.WidgetManager.BindAction(this, actionGuid, 1);
+            }
+
         }
 
         public override void UpdateSettings()
