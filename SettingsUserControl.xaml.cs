@@ -11,6 +11,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using Utility;
+using WigiDashWidgetFramework.Logging;
 using Color = System.Drawing.Color;
 
 namespace HotkeyWidget {
@@ -19,6 +20,7 @@ namespace HotkeyWidget {
     /// </summary>
     public partial class SettingsUserControl : UserControl {
 
+        private static Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         HotkeyWidgetInstance parent;
         private Guid _parentDevice;
@@ -38,20 +40,23 @@ namespace HotkeyWidget {
 
             try {
                 bgColorSelect.Content = ColorTranslator.ToHtml(parent.BackColor);
-            } catch { }
+            } catch (Exception ex) { Logger.Error(ex, "Failed to convert BackColor to HTML string for display"); }
 
             textOverlay.Text = parent.OverlayText;
 
-            try 
+            try
             {
                 overlayColorSelect.Content = ColorTranslator.ToHtml(parent.OverlayColor);
-            } catch { }
+            } catch (Exception ex) { Logger.Error(ex, "Failed to convert OverlayColor to HTML string for display"); }
 
             try
             {
                 vectorColorSelect.Content = ColorTranslator.ToHtml(parent.VectorColor);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Failed to convert VectorColor to HTML string for display");
+            }
 
             vectorScaleSelect.Value = parent.VectorScale * 100;
 
@@ -93,7 +98,10 @@ namespace HotkeyWidget {
                 parent.OverlayColor = ColorTranslator.FromHtml(overlayColorSelect.Content.ToString());
                 parent.VectorColor = ColorTranslator.FromHtml(vectorColorSelect.Content.ToString());
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Failed to parse selected color values from HTML string");
+            }
 
             parent.SaveSettings();
             parent.UpdateSettings();
