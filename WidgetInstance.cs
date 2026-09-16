@@ -1,5 +1,4 @@
 ﻿using WigiDashWidgetFramework.WidgetUtility;
-using WigiDashWidgetFramework.Logging;
 using PictureWidget;
 using System;
 using System.Drawing;
@@ -10,8 +9,6 @@ using HandyControl.Tools.Extension;
 namespace HotkeyWidget {
     public partial class HotkeyWidgetInstance : PictureWidgetInstance
     {
-
-        private static Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
         public HotkeyWidgetInstance(HotkeyWidgetServer parent, WidgetSize widgetSize, Guid instanceGuid, string resourcePath) : base(parent, widgetSize, instanceGuid, resourcePath)
         {
@@ -156,7 +153,7 @@ namespace HotkeyWidget {
                     }
                     catch (Exception e)
                     {
-                        Logger.Error(e, $"Failed to load image from {HotkeyImagePath}");
+                        //Logger.Error(e, $"Failed to load image from {HotkeyImagePath}");
                     }
                 }
             }
@@ -181,7 +178,7 @@ namespace HotkeyWidget {
                     }
                     catch (Exception e)
                     {
-                        Logger.Error(e, $"Failed to load image from {HotkeyImageToggledPath}");
+                        //Logger.Error(e, $"Failed to load image from {HotkeyImageToggledPath}");
                     }
                 }
             }
